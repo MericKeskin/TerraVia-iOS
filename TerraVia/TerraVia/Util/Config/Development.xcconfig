@@ -1,0 +1,22 @@
+//
+//  Development.xcconfig
+//  TerraVia
+//
+//  Created by Meriç Keskin on 14.05.2025.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+// MARK: - Compiler
+
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+OTHER_SWIFT_FLAGS = -DDEV
+
+// MARK: - Application
+
+// Server
+
+BASE_URL =
+
+// Feature Flags
