@@ -53,9 +53,24 @@
 		F82356DBFAD02749C36C4462 /* Pods-TerraVia-TerraViaUITests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.production.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		ECF683852DD638250073A22D /* Exceptions for "TerraVia" folder in "TerraVia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Util/Config/Development.xcconfig,
+				Util/Config/Production.xcconfig,
+				Util/Config/Staging.xcconfig,
+			);
+			target = ECFFB46C2DD2078400898BCB /* TerraVia */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ECFFB46F2DD2078400898BCB /* TerraVia */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ECF683852DD638250073A22D /* Exceptions for "TerraVia" folder in "TerraVia" target */,
+			);
 			path = TerraVia;
 			sourceTree = "<group>";
 		};
@@ -494,7 +509,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Staging;
@@ -509,6 +523,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M56PY7R6R5;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -703,6 +718,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M56PY7R6R5;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -734,6 +750,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M56PY7R6R5;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
