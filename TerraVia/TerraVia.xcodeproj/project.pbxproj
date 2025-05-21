@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05B0F3DA70B805863606C22E /* Pods_TerraVia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7044269587B0956319CE237 /* Pods_TerraVia.framework */; };
-		C3655A331AEB7C4E8F9124E9 /* Pods_TerraViaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204868F1F1611EB7CEAFF9B3 /* Pods_TerraViaTests.framework */; };
-		D33CC3AA2DA01088A245CC59 /* Pods_TerraVia_TerraViaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB474E935C1D40F5F3167126 /* Pods_TerraVia_TerraViaUITests.framework */; };
+		098482001A0B3A76E18BB5E2 /* Pods_TerraVia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C821CCE044BD052C3CF6BE0E /* Pods_TerraVia.framework */; };
+		48CF9CF4BD7D3D181D60140F /* Pods_TerraVia_TerraViaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E217C859D0C91C7A3512BE51 /* Pods_TerraVia_TerraViaUITests.framework */; };
+		B3BFE1CCA13208B9BDD13AB4 /* Pods_TerraViaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0782DF4DDBA853AEA0C1D01 /* Pods_TerraViaTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,27 +30,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19EAF2FDDADFEBD8FE312285 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.staging.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.staging.xcconfig"; sourceTree = "<group>"; };
-		204868F1F1611EB7CEAFF9B3 /* Pods_TerraViaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraViaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4618188A1AE11F6528CC1BE8 /* Pods-TerraVia.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.staging.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.staging.xcconfig"; sourceTree = "<group>"; };
-		6875123F112A4EF68535D80F /* Pods-TerraVia.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.production.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.production.xcconfig"; sourceTree = "<group>"; };
-		6B134C946337D72ED8F7C5E5 /* Pods-TerraViaTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.staging.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.staging.xcconfig"; sourceTree = "<group>"; };
-		8AB96B313DBAE2A4F6500584 /* Pods-TerraVia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.debug.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.debug.xcconfig"; sourceTree = "<group>"; };
-		8DEE5FAAC58190368E8CEB1E /* Pods-TerraVia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.release.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.release.xcconfig"; sourceTree = "<group>"; };
-		8F52358154199B66FCD394D2 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.development.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.development.xcconfig"; sourceTree = "<group>"; };
-		A2F95D5801F94CEAAA988EEF /* Pods-TerraVia-TerraViaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.release.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AB474E935C1D40F5F3167126 /* Pods_TerraVia_TerraViaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraVia_TerraViaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF6C4A4E949E6E02C9397F36 /* Pods-TerraVia-TerraViaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.debug.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		C6858C01B867AAEA00FF24BA /* Pods-TerraViaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.debug.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CBF7A23F70920FC8B5CF228D /* Pods-TerraVia.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.development.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.development.xcconfig"; sourceTree = "<group>"; };
-		CED6F727AECC18C95DED9244 /* Pods-TerraViaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.release.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.release.xcconfig"; sourceTree = "<group>"; };
-		D689A1781A54283C0DCAB4A5 /* Pods-TerraViaTests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.development.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.development.xcconfig"; sourceTree = "<group>"; };
-		D7044269587B0956319CE237 /* Pods_TerraVia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraVia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		411A1D73E1425B6BDCD56078 /* Pods-TerraVia.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.staging.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.staging.xcconfig"; sourceTree = "<group>"; };
+		6FD11088E3740461EA3C0DF3 /* Pods-TerraViaTests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.development.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.development.xcconfig"; sourceTree = "<group>"; };
+		7A1AE243E1DEF567295BB0D5 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.staging.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.staging.xcconfig"; sourceTree = "<group>"; };
+		85D1689F8F8EB181C334BCF9 /* Pods-TerraViaTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.staging.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.staging.xcconfig"; sourceTree = "<group>"; };
+		8898061FA6E8E5B29A71C88B /* Pods-TerraVia-TerraViaUITests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.production.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.production.xcconfig"; sourceTree = "<group>"; };
+		96DDFA997B706F369DC1D53B /* Pods-TerraVia.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.development.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.development.xcconfig"; sourceTree = "<group>"; };
+		B0782DF4DDBA853AEA0C1D01 /* Pods_TerraViaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraViaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9D874740C6C7A21D0B4245 /* Pods-TerraViaTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.production.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.production.xcconfig"; sourceTree = "<group>"; };
+		C517DB97C0E8A784885CF219 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.development.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.development.xcconfig"; sourceTree = "<group>"; };
+		C821CCE044BD052C3CF6BE0E /* Pods_TerraVia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraVia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E217C859D0C91C7A3512BE51 /* Pods_TerraVia_TerraViaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerraVia_TerraViaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E852A7E5588D19C03A222D4F /* Pods-TerraVia.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia.production.xcconfig"; path = "Target Support Files/Pods-TerraVia/Pods-TerraVia.production.xcconfig"; sourceTree = "<group>"; };
 		ECFFB46D2DD2078400898BCB /* TerraVia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerraVia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFFB47A2DD2078400898BCB /* TerraViaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerraViaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFFB4842DD2078400898BCB /* TerraViaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerraViaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3F69D8C5831636DAF3121D0 /* Pods-TerraViaTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraViaTests.production.xcconfig"; path = "Target Support Files/Pods-TerraViaTests/Pods-TerraViaTests.production.xcconfig"; sourceTree = "<group>"; };
-		F82356DBFAD02749C36C4462 /* Pods-TerraVia-TerraViaUITests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerraVia-TerraViaUITests.production.xcconfig"; path = "Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -91,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05B0F3DA70B805863606C22E /* Pods_TerraVia.framework in Frameworks */,
+				098482001A0B3A76E18BB5E2 /* Pods_TerraVia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3655A331AEB7C4E8F9124E9 /* Pods_TerraViaTests.framework in Frameworks */,
+				B3BFE1CCA13208B9BDD13AB4 /* Pods_TerraViaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,19 +101,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33CC3AA2DA01088A245CC59 /* Pods_TerraVia_TerraViaUITests.framework in Frameworks */,
+				48CF9CF4BD7D3D181D60140F /* Pods_TerraVia_TerraViaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5199CAA7F168BB43926850EA /* Frameworks */ = {
+		93F602B840107905857686C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D7044269587B0956319CE237 /* Pods_TerraVia.framework */,
-				AB474E935C1D40F5F3167126 /* Pods_TerraVia_TerraViaUITests.framework */,
-				204868F1F1611EB7CEAFF9B3 /* Pods_TerraViaTests.framework */,
+				C821CCE044BD052C3CF6BE0E /* Pods_TerraVia.framework */,
+				E217C859D0C91C7A3512BE51 /* Pods_TerraVia_TerraViaUITests.framework */,
+				B0782DF4DDBA853AEA0C1D01 /* Pods_TerraViaTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -127,21 +121,15 @@
 		A0DFC29A880CD688AA92932D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8AB96B313DBAE2A4F6500584 /* Pods-TerraVia.debug.xcconfig */,
-				8DEE5FAAC58190368E8CEB1E /* Pods-TerraVia.release.xcconfig */,
-				BF6C4A4E949E6E02C9397F36 /* Pods-TerraVia-TerraViaUITests.debug.xcconfig */,
-				A2F95D5801F94CEAAA988EEF /* Pods-TerraVia-TerraViaUITests.release.xcconfig */,
-				C6858C01B867AAEA00FF24BA /* Pods-TerraViaTests.debug.xcconfig */,
-				CED6F727AECC18C95DED9244 /* Pods-TerraViaTests.release.xcconfig */,
-				CBF7A23F70920FC8B5CF228D /* Pods-TerraVia.development.xcconfig */,
-				4618188A1AE11F6528CC1BE8 /* Pods-TerraVia.staging.xcconfig */,
-				6875123F112A4EF68535D80F /* Pods-TerraVia.production.xcconfig */,
-				8F52358154199B66FCD394D2 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */,
-				19EAF2FDDADFEBD8FE312285 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */,
-				F82356DBFAD02749C36C4462 /* Pods-TerraVia-TerraViaUITests.production.xcconfig */,
-				D689A1781A54283C0DCAB4A5 /* Pods-TerraViaTests.development.xcconfig */,
-				6B134C946337D72ED8F7C5E5 /* Pods-TerraViaTests.staging.xcconfig */,
-				F3F69D8C5831636DAF3121D0 /* Pods-TerraViaTests.production.xcconfig */,
+				96DDFA997B706F369DC1D53B /* Pods-TerraVia.development.xcconfig */,
+				E852A7E5588D19C03A222D4F /* Pods-TerraVia.production.xcconfig */,
+				411A1D73E1425B6BDCD56078 /* Pods-TerraVia.staging.xcconfig */,
+				C517DB97C0E8A784885CF219 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */,
+				8898061FA6E8E5B29A71C88B /* Pods-TerraVia-TerraViaUITests.production.xcconfig */,
+				7A1AE243E1DEF567295BB0D5 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */,
+				6FD11088E3740461EA3C0DF3 /* Pods-TerraViaTests.development.xcconfig */,
+				BF9D874740C6C7A21D0B4245 /* Pods-TerraViaTests.production.xcconfig */,
+				85D1689F8F8EB181C334BCF9 /* Pods-TerraViaTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -154,7 +142,7 @@
 				ECFFB4872DD2078400898BCB /* TerraViaUITests */,
 				ECFFB46E2DD2078400898BCB /* Products */,
 				A0DFC29A880CD688AA92932D /* Pods */,
-				5199CAA7F168BB43926850EA /* Frameworks */,
+				93F602B840107905857686C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,11 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECFFB48E2DD2078400898BCB /* Build configuration list for PBXNativeTarget "TerraVia" */;
 			buildPhases = (
-				D5CD0B1A707C5313346C71E8 /* [CP] Check Pods Manifest.lock */,
+				3B3BF9030988DCE07F644A02 /* [CP] Check Pods Manifest.lock */,
 				ECFFB4692DD2078400898BCB /* Sources */,
 				ECFFB46A2DD2078400898BCB /* Frameworks */,
 				ECFFB46B2DD2078400898BCB /* Resources */,
-				446302F86DF090CE5D662952 /* [CP] Embed Pods Frameworks */,
+				1F58F852D1A5E8B93D35C128 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,7 +185,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECFFB4912DD2078400898BCB /* Build configuration list for PBXNativeTarget "TerraViaTests" */;
 			buildPhases = (
-				13561927D218C887A49EEF4A /* [CP] Check Pods Manifest.lock */,
+				11451E59989A451B803862F8 /* [CP] Check Pods Manifest.lock */,
 				ECFFB4762DD2078400898BCB /* Sources */,
 				ECFFB4772DD2078400898BCB /* Frameworks */,
 				ECFFB4782DD2078400898BCB /* Resources */,
@@ -219,11 +207,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECFFB4942DD2078400898BCB /* Build configuration list for PBXNativeTarget "TerraViaUITests" */;
 			buildPhases = (
-				FCADB746F42898C9FC9419CB /* [CP] Check Pods Manifest.lock */,
+				D8B82108E3A8BDA838673894 /* [CP] Check Pods Manifest.lock */,
 				ECFFB4802DD2078400898BCB /* Sources */,
 				ECFFB4812DD2078400898BCB /* Frameworks */,
 				ECFFB4822DD2078400898BCB /* Resources */,
-				B6821619D15001F76004A097 /* [CP] Embed Pods Frameworks */,
+				65FCE1A588F61A21CEE590AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -307,7 +295,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		13561927D218C887A49EEF4A /* [CP] Check Pods Manifest.lock */ = {
+		11451E59989A451B803862F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -329,7 +317,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		446302F86DF090CE5D662952 /* [CP] Embed Pods Frameworks */ = {
+		1F58F852D1A5E8B93D35C128 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -350,28 +338,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TerraVia/Pods-TerraVia-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6821619D15001F76004A097 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D5CD0B1A707C5313346C71E8 /* [CP] Check Pods Manifest.lock */ = {
+		3B3BF9030988DCE07F644A02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -393,7 +360,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCADB746F42898C9FC9419CB /* [CP] Check Pods Manifest.lock */ = {
+		65FCE1A588F61A21CEE590AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TerraVia-TerraViaUITests/Pods-TerraVia-TerraViaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8B82108E3A8BDA838673894 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -515,7 +503,7 @@
 		};
 		ECF6833F2DD4BEB00073A22D /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4618188A1AE11F6528CC1BE8 /* Pods-TerraVia.staging.xcconfig */;
+			baseConfigurationReference = 411A1D73E1425B6BDCD56078 /* Pods-TerraVia.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -547,7 +535,7 @@
 		};
 		ECF683402DD4BEB00073A22D /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B134C946337D72ED8F7C5E5 /* Pods-TerraViaTests.staging.xcconfig */;
+			baseConfigurationReference = 85D1689F8F8EB181C334BCF9 /* Pods-TerraViaTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -567,7 +555,7 @@
 		};
 		ECF683412DD4BEB00073A22D /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19EAF2FDDADFEBD8FE312285 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */;
+			baseConfigurationReference = 7A1AE243E1DEF567295BB0D5 /* Pods-TerraVia-TerraViaUITests.staging.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -710,7 +698,7 @@
 		};
 		ECFFB48F2DD2078400898BCB /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBF7A23F70920FC8B5CF228D /* Pods-TerraVia.development.xcconfig */;
+			baseConfigurationReference = 96DDFA997B706F369DC1D53B /* Pods-TerraVia.development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -742,7 +730,7 @@
 		};
 		ECFFB4902DD2078400898BCB /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6875123F112A4EF68535D80F /* Pods-TerraVia.production.xcconfig */;
+			baseConfigurationReference = E852A7E5588D19C03A222D4F /* Pods-TerraVia.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -774,7 +762,7 @@
 		};
 		ECFFB4922DD2078400898BCB /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D689A1781A54283C0DCAB4A5 /* Pods-TerraViaTests.development.xcconfig */;
+			baseConfigurationReference = 6FD11088E3740461EA3C0DF3 /* Pods-TerraViaTests.development.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -794,7 +782,7 @@
 		};
 		ECFFB4932DD2078400898BCB /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3F69D8C5831636DAF3121D0 /* Pods-TerraViaTests.production.xcconfig */;
+			baseConfigurationReference = BF9D874740C6C7A21D0B4245 /* Pods-TerraViaTests.production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -814,7 +802,7 @@
 		};
 		ECFFB4952DD2078400898BCB /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F52358154199B66FCD394D2 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */;
+			baseConfigurationReference = C517DB97C0E8A784885CF219 /* Pods-TerraVia-TerraViaUITests.development.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -832,7 +820,7 @@
 		};
 		ECFFB4962DD2078400898BCB /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F82356DBFAD02749C36C4462 /* Pods-TerraVia-TerraViaUITests.production.xcconfig */;
+			baseConfigurationReference = 8898061FA6E8E5B29A71C88B /* Pods-TerraVia-TerraViaUITests.production.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
