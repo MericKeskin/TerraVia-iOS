@@ -22,7 +22,7 @@ enum AppConfig {
 #endif
     }()
     
-    var baseURL: String? {
+    static let baseURL: String? = {
         Bundle.main.infoDictionary?["BaseURL"] as? String
-    }
+    }()
 }

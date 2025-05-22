@@ -11,15 +11,13 @@ class BaseViewModel: ObservableObject {
     
     // MARK: Dependency
     
-    private var dependencyProvider: DependencyProvider
-    
-    // MARK: Managers
-    
-    lazy var firebaseManager = dependencyProvider.firebaseManager
+    private let dependencyProvider: DependencyProviderProtocol
+    var managers: ManagerGroup { dependencyProvider.managers }
+    var services: ServiceGroup { dependencyProvider.services }
     
     // MARK: Lifecycle
     
-    init(dependencyProvider: DependencyProvider = .common) {
+    init(dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared) {
         self.dependencyProvider = dependencyProvider
     }
 }

@@ -9,7 +9,7 @@ import FirebaseAuth
 
 protocol FirebaseManagerProtocol {
     
-    // Authentication
+    // MARK: Authentication
     
     func signIn(email: String, password: String, completion: @escaping ((Bool) -> Void))
 }
