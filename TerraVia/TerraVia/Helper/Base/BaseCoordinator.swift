@@ -14,7 +14,7 @@ protocol BaseCoordinator: ObservableObject {
     associatedtype Route
     
     /// Active route of the flow.
-    var currentRoute: Route { get set }
+    var route: Route { get set }
     
     /// Common instance for singularity.
     static var shared: Self { get }

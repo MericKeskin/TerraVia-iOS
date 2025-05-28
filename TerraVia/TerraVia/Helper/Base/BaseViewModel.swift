@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUICore
 
 class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     
@@ -17,7 +18,7 @@ class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     
     // MARK: Coordinator
     
-    let coordinator: C
+    @ObservedObject var coordinator: C
     
     // MARK: Lifecycle
     

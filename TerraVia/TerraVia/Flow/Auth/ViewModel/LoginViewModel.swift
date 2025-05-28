@@ -11,8 +11,13 @@ final class LoginViewModel: BaseViewModel<AuthCoordinator> {
     
     @Published var email: String = ""
     @Published var password: String = ""
+}
+
+// MARK: - Navigation
+
+extension LoginViewModel {
     
     func routeSignUp() {
-        coordinator.flow = .signUp
+        coordinator.route = .signUp
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @EnvironmentObject var viewModel: SignUpViewModel
+    @StateObject var viewModel: SignUpViewModel
     
     var body: some View {
         BaseView(viewModel: viewModel) {

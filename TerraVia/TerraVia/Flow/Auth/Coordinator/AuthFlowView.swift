@@ -9,10 +9,10 @@ import SwiftUI
 
 struct AuthFlowView: BaseFlowView {
     
-    @ObservedObject var coordinator: AuthCoordinator = .shared
+    @StateObject var coordinator: AuthCoordinator = .shared
     
     var navigationContent: some View {
-        switch coordinator.currentRoute {
+        switch coordinator.route {
         case .login:
             coordinator.makeLoginView()
         case .signUp:

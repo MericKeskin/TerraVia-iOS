@@ -5,8 +5,8 @@
 //  Created by Meriç Keskin on 22.05.2025.
 //
 
-import SwiftUICore
 import Combine
+import SwiftUICore
 
 final class AuthCoordinator: BaseCoordinator {
     
@@ -15,7 +15,7 @@ final class AuthCoordinator: BaseCoordinator {
         case signUp
     }
     
-    @Published var currentRoute: Route = .login
+    @Published var route: Route = .login
     
     static let shared = AuthCoordinator()
 }
@@ -26,11 +26,11 @@ extension AuthCoordinator {
     
     func makeLoginView() -> some View {
         let vm = LoginViewModel(coordinator: self)
-        return LoginView().environmentObject(vm)
+        return LoginView(viewModel: vm)
     }
     
     func makeSignUpView() -> some View {
         let vm = SignUpViewModel(coordinator: self)
-        return SignUpView().environmentObject(vm)
+        return SignUpView(viewModel: vm)
     }
 }
