@@ -8,4 +8,5 @@
 protocol LoggableError: Error {
     var loggableDescription: String { get }
     var underlyingError: Error? { get }
+    var showUser: Bool { get }
 }

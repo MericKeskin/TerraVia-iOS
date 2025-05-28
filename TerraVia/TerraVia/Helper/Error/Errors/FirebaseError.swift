@@ -23,4 +23,11 @@ enum FirebaseError: LoggableError {
             nil
         }
     }
+    
+    var showUser: Bool {
+        switch self {
+        case .auth:
+            true
+        }
+    }
 }

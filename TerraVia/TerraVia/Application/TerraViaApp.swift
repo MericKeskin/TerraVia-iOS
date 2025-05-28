@@ -14,7 +14,7 @@ struct TerraViaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthFlowView()
         }
     }
 }

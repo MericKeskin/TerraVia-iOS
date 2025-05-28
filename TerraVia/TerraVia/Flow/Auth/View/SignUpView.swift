@@ -1,0 +1,19 @@
+//
+//  SignUpView.swift
+//  TerraVia
+//
+//  Created by Meriç Keskin on 24.05.2025.
+//
+
+import SwiftUI
+
+struct SignUpView: View {
+    
+    @EnvironmentObject var viewModel: SignUpViewModel
+    
+    var body: some View {
+        BaseView(viewModel: viewModel) {
+            Text("Sign Up")
+        }
+    }
+}
