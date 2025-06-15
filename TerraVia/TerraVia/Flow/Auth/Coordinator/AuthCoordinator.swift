@@ -10,19 +10,26 @@ import SwiftUICore
 
 final class AuthCoordinator: BaseCoordinator {
     
+    static let shared = AuthCoordinator()
+    
     enum Route {
-        case login
         case signUp
+        case login
     }
     
-    @Published var route: Route = .login
-    
-    static let shared = AuthCoordinator()
+    func makeRoute(for route: Route) -> some View {
+        switch route {
+        case .signUp:
+            makeSignUpView()
+        case .login:
+            makeLoginView()
+        }
+    }
 }
 
-// MARK: - Route Functions
+// MARK: - Make Routes
 
-extension AuthCoordinator {
+private extension AuthCoordinator {
     
     func makeLoginView() -> some View {
         let vm = LoginViewModel(coordinator: self)

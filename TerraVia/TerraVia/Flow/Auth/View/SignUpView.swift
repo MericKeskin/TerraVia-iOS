@@ -17,3 +17,8 @@ struct SignUpView: View {
         }
     }
 }
+
+#Preview {
+    let mockSignUpViewModel = SignUpViewModel(coordinator: AuthCoordinator.shared)
+    SignUpView(viewModel: mockSignUpViewModel)
+}

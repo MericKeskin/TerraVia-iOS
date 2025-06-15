@@ -13,17 +13,12 @@ struct LoginView: View {
     
     var body: some View {
         BaseView(viewModel: viewModel) {
-            VStack {
-                Text("Login")
-                    .font(.headline)
-                TextField("Email", text: $viewModel.email)
-                SecureField("Password", text: $viewModel.password)
-                Button(action: {
-                    viewModel.routeSignUp()
-                }) {
-                    Text("Sign Up")
-                }
-            }
+            Text("Login View")
         }
     }
+}
+
+#Preview {
+    let mockLoginViewModel = LoginViewModel(coordinator: AuthCoordinator.shared)
+    LoginView(viewModel: mockLoginViewModel)
 }

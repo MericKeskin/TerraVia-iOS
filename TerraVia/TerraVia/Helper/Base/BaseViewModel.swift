@@ -13,21 +13,28 @@ class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     // MARK: Dependency
     
     private let dependencyProvider: DependencyProviderProtocol
-    var managers: ManagerGroup { dependencyProvider.managers }
-    var services: ServiceGroup { dependencyProvider.services }
+    var managers: ManagerGroup
+    var services: ServiceGroup
     
     // MARK: Coordinator
     
     @ObservedObject var coordinator: C
+    let appCoordinator: AppCoordinator = .shared
+    
+    // MARK: Error
+    
+    let errorHandler: ErrorHandler = .shared
+    
+    // MARK: Hud
+    
+    @Published var isShowingHud: Bool = false
     
     // MARK: Lifecycle
     
     init(dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared, coordinator: C) {
         self.dependencyProvider = dependencyProvider
+        self.managers = dependencyProvider.managers
+        self.services = dependencyProvider.services
         self.coordinator = coordinator
     }
-    
-    // MARK: Error
-    
-    @Published var activeError: LoggableError?
 }

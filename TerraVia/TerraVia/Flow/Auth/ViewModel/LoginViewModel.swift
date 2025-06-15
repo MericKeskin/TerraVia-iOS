@@ -9,6 +9,12 @@ import Combine
 
 final class LoginViewModel: BaseViewModel<AuthCoordinator> {
     
+    // MARK: Dependency
+    
+    private lazy var firebaseManager = managers.firebaseManager
+    
+    // MARK: Property
+    
     @Published var email: String = ""
     @Published var password: String = ""
 }
@@ -17,7 +23,15 @@ final class LoginViewModel: BaseViewModel<AuthCoordinator> {
 
 extension LoginViewModel {
     
-    func routeSignUp() {
-        coordinator.route = .signUp
+}
+
+// MARK: - Firebase
+
+extension LoginViewModel {
+    
+    func logIn() {
+        firebaseManager.logIn(email: email, password: password) { _ in
+            
+        }
     }
 }

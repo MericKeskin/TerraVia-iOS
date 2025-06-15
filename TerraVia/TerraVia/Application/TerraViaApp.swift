@@ -14,7 +14,16 @@ struct TerraViaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AuthFlowView()
+            ZStack {
+                AppFlowView()
+                    .environment(\.font, .raleway(size: 16))
+                    .environmentObject(AppCoordinator.shared)
+                
+                ErrorView()
+                    .environmentObject(ErrorHandler.shared)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .debug()
         }
     }
 }
