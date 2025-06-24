@@ -7,7 +7,12 @@
 
 import SwiftUI
 
-struct TVTextField {
+struct TVTextField<ErrorField: View> {
+    
+    enum Style {
+        case regular
+        case secure
+    }
     
     // MARK: Dynamic
     
@@ -18,13 +23,19 @@ struct TVTextField {
     
     var placeholder: String
     @Binding var input: String
+    var style: Style
     var font: Font?
+    var isError: Bool
+    var errorField: ErrorField?
     var height: CGFloat?
     
-    init(_ placeholder: String = "", input: Binding<String>, font: Font? = nil, height: CGFloat? = nil) {
+    init(_ placeholder: String = "", input: Binding<String>, style: Style = .regular, font: Font? = nil, isError: Bool = false, @ViewBuilder errorField: () -> ErrorField = { EmptyView() }, height: CGFloat? = nil) {
         self.placeholder = placeholder
         self._input = input
+        self.style = style
         self.font = font
+        self.isError = isError
+        self.errorField = errorField()
         self.height = height
     }
 }
@@ -34,30 +45,65 @@ struct TVTextField {
 extension TVTextField: View {
     
     var body: some View {
-        VStack {
-            TextField(placeholder, text: $input)
-                .font(font ?? .raleway(size: 20, relativeTo: .body))
+        VStack(alignment: .leading, spacing: 2) {
+            switch style {
+            case .regular:
+                TextField(
+                    text: $input,
+                    prompt: Text(placeholder).foregroundColor(.textSecondary),
+                    label: {}
+                )
+                .foregroundStyle(.textPrimary)
+                .font(font ?? .raleway(weight: .medium, size: 20, relativeTo: .body))
                 .autocapitalization(.none)
+                .padding(.horizontal, horizontalPadding)
+                .padding(.vertical, verticalPadding)
+                .frame(minHeight: height)
+                .overlay {
+                    if isError {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.errorTint, lineWidth: 2)
+                    } else {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.TVStrokeGradient, lineWidth: 2)
+                    }
+                }
+            case .secure:
+                SecureField(
+                    text: $input,
+                    prompt: Text(placeholder).foregroundColor(.textSecondary),
+                    label: {}
+                )
+                .autocapitalization(.none)
+                .padding(.horizontal, horizontalPadding)
+                .padding(.vertical, verticalPadding)
+                .frame(minHeight: height)
+                .overlay {
+                    if isError {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.errorTint, lineWidth: 2)
+                    } else {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.TVStrokeGradient, lineWidth: 2)
+                    }
+                }
+            }
+            
+            if isError {
+                errorField?
+                    .foregroundStyle(.errorTint)
+            }
         }
-        .padding(.horizontal, horizontalPadding)
-        .padding(.vertical, verticalPadding)
-        .frame(minHeight: height)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(.TVStrokeGradient, lineWidth: 2)
-        )
     }
 }
 
 #Preview {
+    var input: Binding<String> = Binding(get: { "" },
+                                         set: { value in })
     let placeholder: String = "Enter..."
     
     VStack {
-        TVTextField(placeholder, input: Binding(get: {
-            ""
-        }, set: { value in
-            
-        }), font: .raleway(size: 20), height: 56)
+        TVTextField(placeholder, input: input, font: .raleway(size: 20), height: 56)
     }
     .padding(.all)
 }

@@ -9,27 +9,23 @@ import SwiftUI
 
 struct BaseView<Content: View, VM: BaseViewModel<C>, C: BaseCoordinator>: View {
     
+    /// Namespace for animations.
+    @Namespace var animationNamespace
+    
     // MARK: Parameters
     
     @ObservedObject var viewModel: VM
     var navBarVisibility: Visibility
-    var navBarHidden: Bool { navBarVisibility == .hidden }
-    @ViewBuilder var content: () -> Content
+    var content: (Namespace.ID) -> Content
     
-    init(viewModel: VM, navBarVisibility: Visibility = .automatic, content: @escaping () -> Content) {
+    init(viewModel: VM, navBarVisibility: Visibility = .automatic, @ViewBuilder content: @escaping (Namespace.ID) -> Content) {
         self.viewModel = viewModel
         self.navBarVisibility = navBarVisibility
         self.content = content
     }
     
     var body: some View {
-        if #available(iOS 16.0, *) {
-            content()
-                .toolbar(navBarVisibility)
-        } else {
-            content()
-                .navigationBarHidden(navBarHidden)
-        }
-        
+        content(animationNamespace)
+            .toolbar(navBarVisibility)
     }
 }

@@ -9,19 +9,21 @@ import Combine
 
 final class ErrorHandler: ObservableObject {
     
+    /// Common instance for singularity.
     static let shared = ErrorHandler()
     
-    @Published var activeError: Error?
+    /// A state variable of the occuring error.
+    @Published private(set) var activeError: LoggableError?
     
+    /// Handles the error.
     func register(_ error: Error) {
-            if let loggableError = error as? LoggableError, loggableError.showUser {
-                activeError = loggableError
-            } else {
-                Log.error(error)
-            }
-        }
+        let loggableError = error.eraseToLoggable()
+        activeError = loggableError
+        Log.error(loggableError)
+    }
 
-        func clear() {
-            activeError = nil
-        }
+    /// Resets the error.
+    func clear() {
+        activeError = nil
+    }
 }

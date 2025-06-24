@@ -12,7 +12,7 @@ struct WelcomeView: View {
     @StateObject var viewModel: WelcomeViewModel
     
     var body: some View {
-        BaseView(viewModel: viewModel) {
+        BaseView(viewModel: viewModel) { _ in 
             Text("Hello, Welcome to TerraVia!")
         }
     }

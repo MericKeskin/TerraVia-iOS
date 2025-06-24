@@ -14,19 +14,26 @@ protocol BaseCoordinator: ObservableObject {
     /// Create a enum named 'Route' inside the coordinator, add cases for each route.
     associatedtype Route
     
+    /// For generic makeRoute(for:) return value.
     associatedtype RouteContent: View
     
     /// Common instance for singularity.
     static var shared: Self { get }
     
+    /// View builder to arrange the views of the flow.
     @ViewBuilder func makeRoute(for route: Route) -> RouteContent
     
-    func navigate(to flow: AppFlow)
+    /// Navigates to route inside a flow.
+    func navigate(to flow: AppFlow, resetting: Bool)
 }
 
 extension BaseCoordinator {
     
-    func navigate(to flow: AppFlow) {
+    func navigate(to flow: AppFlow, resetting: Bool = false) {
         AppCoordinator.shared.navigate(to: flow)
+        
+        if resetting {
+            AppCoordinator.shared.setRoot()
+        }
     }
 }

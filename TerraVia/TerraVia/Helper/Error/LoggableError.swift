@@ -8,5 +8,26 @@
 protocol LoggableError: Error {
     var loggableDescription: String { get }
     var underlyingError: Error? { get }
-    var showUser: Bool { get }
+}
+
+fileprivate struct AnyLoggableError<E: Error>: LoggableError {
+    
+    let loggableDescription: String
+    let underlyingError: Error?
+
+    init(_ error: E) {
+        self.loggableDescription = "Unexpected error"
+        self.underlyingError = error
+    }
+}
+
+extension Error {
+    
+    func eraseToLoggable() -> LoggableError {
+        if let loggableError = self as? LoggableError {
+            return loggableError
+        } else {
+            return AnyLoggableError(self)
+        }
+    }
 }

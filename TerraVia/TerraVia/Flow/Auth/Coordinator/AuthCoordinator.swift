@@ -13,16 +13,16 @@ final class AuthCoordinator: BaseCoordinator {
     static let shared = AuthCoordinator()
     
     enum Route {
-        case signUp
-        case login
+        case register
+        case forgotPassword
     }
     
     func makeRoute(for route: Route) -> some View {
         switch route {
-        case .signUp:
-            makeSignUpView()
-        case .login:
-            makeLoginView()
+        case .register:
+            makeRegisterView()
+        case .forgotPassword:
+            makeForgotPasswordView()
         }
     }
 }
@@ -31,13 +31,13 @@ final class AuthCoordinator: BaseCoordinator {
 
 private extension AuthCoordinator {
     
-    func makeLoginView() -> some View {
-        let vm = LoginViewModel(coordinator: self)
-        return LoginView(viewModel: vm)
+    func makeRegisterView() -> some View {
+        let vm = RegisterViewModel(coordinator: self)
+        return RegisterView(viewModel: vm)
     }
     
-    func makeSignUpView() -> some View {
-        let vm = SignUpViewModel(coordinator: self)
-        return SignUpView(viewModel: vm)
+    func makeForgotPasswordView() -> some View {
+        let vm = ForgotPasswordViewModel(coordinator: self)
+        return ForgotPasswordView(viewModel: vm)
     }
 }

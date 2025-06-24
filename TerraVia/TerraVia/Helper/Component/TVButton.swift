@@ -28,6 +28,8 @@ struct TVButton<Label: View> {
     var fill: Bool
     var action: @MainActor () -> Void
     var label: Label?
+    var isLoading: Bool
+    var isDisabled: Bool
     
     // MARK: Lifecycle
     
@@ -35,11 +37,15 @@ struct TVButton<Label: View> {
         @ViewBuilder label: () -> Label,
         background: (any View)? = nil,
         fill: Bool = false,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
         action: @escaping @MainActor () -> Void
     ) {
         self.label = label()
         self.background = background
         self.fill = fill
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
         self.action = action
     }
 }
@@ -59,6 +65,8 @@ extension TVButton where Label == EmptyView {
         width: CGFloat? = nil,
         height: CGFloat? = nil,
         fill: Bool = false,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
         action: @escaping @MainActor () -> Void
     ) {
         self.title = title
@@ -71,6 +79,8 @@ extension TVButton where Label == EmptyView {
         self.width = width
         self.height = height
         self.fill = fill
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
         self.action = action
     }
 }
@@ -81,20 +91,30 @@ extension TVButton: View {
     
     var body: some View {
         Button(action: action) {
-            buttonContent
-                .frame(maxWidth: width.map { $0 - horizontalPadding * 2 }, maxHeight: height.map { $0 - verticalPadding * 2 })
+            ZStack {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    buttonContent
+                        .frame(maxWidth: width.map { $0 - horizontalPadding * 2 }, maxHeight: height.map { $0 - verticalPadding * 2 })
+                }
+            }
+            .padding(.horizontal, horizontalPadding)
+            .padding(.vertical, verticalPadding)
+            .frame(minWidth: width, maxWidth: fill ? .infinity : nil, minHeight: height)
         }
-        .padding(.horizontal, horizontalPadding)
-        .padding(.vertical, verticalPadding)
-        .frame(minWidth: width, maxWidth: fill ? .infinity : nil, minHeight: height)
         .background {
             if let background {
                 AnyView(background)
             } else {
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 16)
                     .fill(.TVButtonGradient)
             }
         }
+        .disabled(isLoading || isDisabled)
+        .grayscale(isDisabled ? 1 : 0)
+        .animation(.easeInOut, value: isDisabled)
     }
     
     @ViewBuilder private var buttonContent: some View {
@@ -117,8 +137,8 @@ extension TVButton: View {
                     
                     if let title {
                         Text(title)
-                            .font(font ?? .raleway(size: 24, relativeTo: .caption))
-                            .foregroundStyle(.backgroundBase)
+                            .font(font ?? .raleway(weight: .semiBold, size: 24, relativeTo: .headline))
+                            .foregroundStyle(.textPrimary)
                     }
                     
                     if let leadingImage {
@@ -142,7 +162,7 @@ extension TVButton: View {
     let title: String = "Button"
     
     VStack {
-        TVButton(title: title, trailingImage: .deneme, width: 180, height: 90) {
+        TVButton(title: title, trailingImage: .app, width: 200, height: 90) {
             
         }
     }

@@ -12,7 +12,6 @@ final class OnboardingCoordinator: BaseCoordinator {
     
     enum Route {
         case welcome
-        case register
     }
     
     static let shared = OnboardingCoordinator()
@@ -21,8 +20,6 @@ final class OnboardingCoordinator: BaseCoordinator {
         switch route {
         case .welcome:
             makeWelcomeView()
-        case .register:
-            makeRegisterView()
         }
     }
 }
@@ -34,10 +31,5 @@ private extension OnboardingCoordinator {
     func makeWelcomeView() -> some View {
         let vm = WelcomeViewModel(coordinator: self)
         return WelcomeView(viewModel: vm)
-    }
-    
-    func makeRegisterView() -> some View {
-        let vm = RegisterViewModel(coordinator: self)
-        return RegisterView(viewModel: vm)
     }
 }

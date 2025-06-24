@@ -13,33 +13,17 @@ struct AppFlowView: View {
     
     var body: some View {
         Group {
-            if #available(iOS 16.0, *) {
-                NavigationStack(path: $coordinator.path) {
-                    splashContent
-                        .navigationDestination(for: AppFlow.self) { flow in
-                            coordinator.makeFlow(for: flow)
-                        }
-                }
-            } else {
-                NavigationView {
-                    splashContent
-                    
-                    NavigationLink(
-                        destination: coordinator.path.last.map(coordinator.makeFlow),
-                        isActive: Binding(
-                            get: { coordinator.path.last != nil },
-                            set: { if !$0 { coordinator.pop() } }
-                        ),
-                        label: { EmptyView() }
-                    )
-                }
-                .animation(.easeInOut, value: coordinator.path)
+            NavigationStack(path: $coordinator.path) {
+                splashContent
+                    .navigationDestination(for: AppFlow.self) { flow in
+                        coordinator.makeFlow(for: flow)
+                    }
             }
         }
     }
     
     @ViewBuilder var splashContent: some View {
-        let vm = RegisterViewModel(coordinator: OnboardingCoordinator.shared)
+        let vm = RegisterViewModel(coordinator: AuthCoordinator.shared)
         RegisterView(viewModel: vm)
     }
 }

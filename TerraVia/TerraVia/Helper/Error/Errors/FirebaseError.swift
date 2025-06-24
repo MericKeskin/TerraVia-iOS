@@ -6,28 +6,33 @@
 //
 
 enum FirebaseError: LoggableError {
-    case auth(failedWith: Error?)
+    
+    case signUp(failedWith: Error?)
+    case login(failedWith: Error?)
+    case function(failedWith: Error?)
+    case invalidResponse
+    
     
     var loggableDescription: String {
         switch self {
-        case .auth:
+        case .signUp,
+             .login:
             "Auth failed"
+        case .function:
+            "Cloud Function failed"
+        case .invalidResponse:
+            "Invalid response"
         }
     }
     
     var underlyingError: (any Error)? {
         switch self {
-        case .auth(failedWith: let error):
+        case .signUp(failedWith: let error),
+             .login(failedWith: let error),
+             .function(failedWith: let error):
             error
         default:
             nil
-        }
-    }
-    
-    var showUser: Bool {
-        switch self {
-        case .auth:
-            true
         }
     }
 }

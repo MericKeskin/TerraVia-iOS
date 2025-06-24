@@ -4,20 +4,20 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Resources/Fonts/CormorantGaramond/CormorantGaramond-Light.ttf</string>
-		<string>Resources/Fonts/CormorantGaramond/CormorantGaramond-Regular.ttf</string>
-		<string>Resources/Fonts/CormorantGaramond/CormorantGaramond-Medium.ttf</string>
-		<string>Resources/Fonts/CormorantGaramond/CormorantGaramond-SemiBold.ttf</string>
-		<string>Resources/Fonts/CormorantGaramond/CormorantGaramond-Bold.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Thin.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-ExtraLight.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Light.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Regular.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Medium.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-SemiBold.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Bold.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-ExtraBold.ttf</string>
-		<string>Resources/Fonts/Raleway/Raleway-Black.ttf</string>
+		<string>CormorantGaramond-Light.ttf</string>
+		<string>CormorantGaramond-Regular.ttf</string>
+		<string>CormorantGaramond-Medium.ttf</string>
+		<string>CormorantGaramond-SemiBold.ttf</string>
+		<string>CormorantGaramond-Bold.ttf</string>
+		<string>Raleway-Thin.ttf</string>
+		<string>Raleway-ExtraLight.ttf</string>
+		<string>Raleway-Light.ttf</string>
+		<string>Raleway-Regular.ttf</string>
+		<string>Raleway-Medium.ttf</string>
+		<string>Raleway-SemiBold.ttf</string>
+		<string>Raleway-Bold.ttf</string>
+		<string>Raleway-ExtraBold.ttf</string>
+		<string>Raleway-Black.ttf</string>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<string>NO</string>

@@ -12,20 +12,19 @@ final class Log {
     static func error(_ error: Error, with info: String? = nil) {
         guard AppConfig.current == .development else { return }
         
+        let loggableError = error.eraseToLoggable()
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss.SSSS"
+        formatter.dateFormat = "HH:mm:ss.SS"
         
         print("\n[\(formatter.string(from: date))]")
         
-        if let loggableError = error as? LoggableError {
-            print("--- \(loggableError.loggableDescription) ---")
-            if let underlyingError = loggableError.underlyingError {
-                print("*** \(underlyingError.localizedDescription) ***")
-            }
-        } else {
-            print("--- Unexpected Error ---")
-            print("*** \(error.localizedDescription) ***")
+        print("--- \(loggableError.loggableDescription) ---")
+        
+        if let underlyingError = loggableError.underlyingError {
+            let underlyingErrorDescription = (underlyingError as? LoggableError)?.loggableDescription ?? underlyingError.localizedDescription
+            
+            print("*** \(underlyingErrorDescription) ***")
         }
         
         if let info {

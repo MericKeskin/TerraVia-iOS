@@ -19,7 +19,6 @@ class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     // MARK: Coordinator
     
     @ObservedObject var coordinator: C
-    let appCoordinator: AppCoordinator = .shared
     
     // MARK: Error
     
@@ -28,6 +27,10 @@ class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     // MARK: Hud
     
     @Published var isShowingHud: Bool = false
+    
+    // MARK: Loading
+    
+    @Published var isLoading: Bool = false
     
     // MARK: Lifecycle
     

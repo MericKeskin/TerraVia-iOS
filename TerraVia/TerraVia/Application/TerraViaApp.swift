@@ -23,7 +23,6 @@ struct TerraViaApp: App {
                     .environmentObject(ErrorHandler.shared)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .debug()
         }
     }
 }
