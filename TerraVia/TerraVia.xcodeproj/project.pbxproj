@@ -54,6 +54,7 @@
 				Util/Config/Development.xcconfig,
 				Util/Config/Production.xcconfig,
 				Util/Config/Staging.xcconfig,
+				"Util/Property/TerraVia-Info.plist",
 			);
 			target = ECFFB46C2DD2078400898BCB /* TerraVia */;
 		};

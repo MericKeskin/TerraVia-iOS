@@ -30,10 +30,10 @@ protocol BaseCoordinator: ObservableObject {
 extension BaseCoordinator {
     
     func navigate(to flow: AppFlow, resetting: Bool = false) {
-        AppCoordinator.shared.navigate(to: flow)
-        
         if resetting {
-            AppCoordinator.shared.setRoot()
+            AppCoordinator.shared.resetPath(with: flow)
+        } else {
+            AppCoordinator.shared.navigate(to: flow)
         }
     }
 }

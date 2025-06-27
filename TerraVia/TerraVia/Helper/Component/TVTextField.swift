@@ -98,7 +98,7 @@ extension TVTextField: View {
 }
 
 #Preview {
-    var input: Binding<String> = Binding(get: { "" },
+    let input: Binding<String> = Binding(get: { "" },
                                          set: { value in })
     let placeholder: String = "Enter..."
     

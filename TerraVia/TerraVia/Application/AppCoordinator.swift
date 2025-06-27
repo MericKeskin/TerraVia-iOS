@@ -13,6 +13,10 @@ final class AppCoordinator: ObservableObject {
     /// Common instance for singularity.
     static var shared = AppCoordinator()
     
+    /// Navigation root.
+    /// The view to show when navigation path is empty.
+    @Published var root: AppFlow = .auth(.register)
+    
     /// Navigation path.
     @Published var path: [AppFlow] = []
 }
@@ -31,9 +35,13 @@ extension AppCoordinator {
         path.append(contentsOf: flows)
     }
     
-    /// Removes all previous routes.
-    func setRoot() {
-        path.removeSubrange(0..<path.count-1)
+    /// Reset path with new root.
+    func resetPath(with flow: AppFlow) {
+        path.removeAll()
+        
+        withAnimation(.smooth) {
+            root = flow
+        }
     }
     
     /// Pops routes from navigation path.
@@ -58,7 +66,7 @@ extension AppCoordinator {
     
     /// Pops routes from navigation path until root.
     func popToRoot() {
-        path.removeSubrange(1..<path.count)
+        path.removeAll()
     }
 }
 
@@ -73,6 +81,8 @@ extension AppCoordinator {
             OnboardingCoordinator.shared.makeRoute(for: route)
         case .auth(let route):
             AuthCoordinator.shared.makeRoute(for: route)
+        case .dashboard(let route):
+            DashboardCoordinator.shared.makeRoute(for: route)
         }
     }
 }

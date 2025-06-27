@@ -13,7 +13,13 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         BaseView(viewModel: viewModel) { _ in 
-            Text("Forgot Password")
+            Text("Forgot Password View")
+            
+            TVButton {
+                Text("Test Reset Root")
+            } action: {
+                viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
+            }
         }
     }
 }

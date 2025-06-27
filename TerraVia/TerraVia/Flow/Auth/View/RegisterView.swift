@@ -145,7 +145,7 @@ extension RegisterView {
     
     func loginContent(namespace: Namespace.ID) -> some View {
         VStack {
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 4) {
                 TVTextField(
                     "Password",
                     input: $viewModel.password,
@@ -163,7 +163,9 @@ extension RegisterView {
                     label: {
                         Text("Forgot password?")
                     },
-                    background: Color.clear
+                    background: Color.clear,
+                    horizontalPadding: 0,
+                    verticalPadding: 0
                 ) {
                     viewModel.forgotPasswordButtonTapped()
                 }

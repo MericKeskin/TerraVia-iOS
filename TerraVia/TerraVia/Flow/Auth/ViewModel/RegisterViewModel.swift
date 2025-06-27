@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import SwiftUI
+import SwiftUICore
 
 final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     
@@ -118,8 +118,8 @@ private extension RegisterViewModel {
         coordinator.navigate(to: .auth(.forgotPassword))
     }
     
-    func routeDashboard() {
-//        coordinator.navigate(to: .dashboard(.home), resetting: true)
+    func routeHome() {
+        coordinator.navigate(to: .dashboard(.home), resetting: true)
     }
 }
 
@@ -157,7 +157,7 @@ private extension RegisterViewModel {
             guard let self else { return }
             
             if status {
-                self.routeDashboard()
+                self.routeHome()
             }
             
             self.isLoading = false
@@ -171,7 +171,7 @@ private extension RegisterViewModel {
             guard let self else { return }
             
             if status {
-                self.routeDashboard()
+                self.routeHome()
             }
             
             self.isLoading = false

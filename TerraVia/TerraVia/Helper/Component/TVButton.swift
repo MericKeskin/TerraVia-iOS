@@ -9,13 +9,23 @@ import SwiftUI
 
 struct TVButton<Label: View> {
     
+    // MARK: Environment
+    
+    @Environment(\.sizeCategory) var sizeCategory
+    
     // MARK: Dynamic
     
-    @ScaledMetric var horizontalPadding: CGFloat = 12
-    @ScaledMetric var verticalPadding: CGFloat = 8
+    var scaledHorizontalPadding: CGFloat {
+        horizontalPadding * sizeCategory.scaleFactor
+    }
+    
+    var scaledVerticalPadding: CGFloat  {
+        verticalPadding * sizeCategory.scaleFactor
+    }
     
     // MARK: Parameter
     
+    var label: Label?
     var title: String?
     var font: Font?
     var trailingImage: ImageResource?
@@ -23,11 +33,12 @@ struct TVButton<Label: View> {
     var topImage: ImageResource?
     var bottomImage: ImageResource?
     var background: (any View)?
+    var horizontalPadding: CGFloat
+    var verticalPadding: CGFloat
     var width: CGFloat?
     var height: CGFloat?
     var fill: Bool
     var action: @MainActor () -> Void
-    var label: Label?
     var isLoading: Bool
     var isDisabled: Bool
     
@@ -36,12 +47,16 @@ struct TVButton<Label: View> {
     init(
         @ViewBuilder label: () -> Label,
         background: (any View)? = nil,
+        horizontalPadding: CGFloat = 12,
+        verticalPadding: CGFloat = 8,
         fill: Bool = false,
         isDisabled: Bool = false,
         isLoading: Bool = false,
         action: @escaping @MainActor () -> Void
     ) {
         self.label = label()
+        self.horizontalPadding = horizontalPadding
+        self.verticalPadding = verticalPadding
         self.background = background
         self.fill = fill
         self.isDisabled = isDisabled
@@ -62,6 +77,8 @@ extension TVButton where Label == EmptyView {
         topImage: ImageResource? = nil,
         bottomImage: ImageResource? = nil,
         background: (any View)? = nil,
+        horizontalPadding: CGFloat = 12,
+        verticalPadding: CGFloat = 8,
         width: CGFloat? = nil,
         height: CGFloat? = nil,
         fill: Bool = false,
@@ -76,6 +93,8 @@ extension TVButton where Label == EmptyView {
         self.topImage = topImage
         self.bottomImage = bottomImage
         self.background = background
+        self.horizontalPadding = horizontalPadding
+        self.verticalPadding = verticalPadding
         self.width = width
         self.height = height
         self.fill = fill
@@ -97,13 +116,17 @@ extension TVButton: View {
                         .progressViewStyle(.circular)
                 } else {
                     buttonContent
-                        .frame(maxWidth: width.map { $0 - horizontalPadding * 2 }, maxHeight: height.map { $0 - verticalPadding * 2 })
+                        .frame(maxWidth: width.map { $0 - scaledHorizontalPadding * 2 },
+                               maxHeight: height.map { $0 - scaledVerticalPadding * 2 })
                 }
             }
-            .padding(.horizontal, horizontalPadding)
-            .padding(.vertical, verticalPadding)
-            .frame(minWidth: width, maxWidth: fill ? .infinity : nil, minHeight: height)
+            .padding(.horizontal, scaledHorizontalPadding)
+            .padding(.vertical, scaledVerticalPadding)
+            .frame(minWidth: width,
+                   maxWidth: fill ? .infinity : nil,
+                   minHeight: height)
         }
+        .contentShape(RoundedRectangle(cornerRadius: 16))
         .background {
             if let background {
                 AnyView(background)
@@ -112,9 +135,10 @@ extension TVButton: View {
                     .fill(.TVButtonGradient)
             }
         }
-        .disabled(isLoading || isDisabled)
+        .disabled(isDisabled || isLoading)
         .grayscale(isDisabled ? 1 : 0)
         .animation(.easeInOut, value: isDisabled)
+        .animation(.easeInOut, value: isLoading)
     }
     
     @ViewBuilder private var buttonContent: some View {
@@ -162,7 +186,12 @@ extension TVButton: View {
     let title: String = "Button"
     
     VStack {
-        TVButton(title: title, trailingImage: .app, width: 200, height: 90) {
+        TVButton(
+            title: title,
+            trailingImage: .app,
+            width: 200,
+            height: 90
+        ) {
             
         }
     }

@@ -14,16 +14,11 @@ struct AppFlowView: View {
     var body: some View {
         Group {
             NavigationStack(path: $coordinator.path) {
-                splashContent
+                coordinator.makeFlow(for: coordinator.root)
                     .navigationDestination(for: AppFlow.self) { flow in
                         coordinator.makeFlow(for: flow)
                     }
             }
         }
-    }
-    
-    @ViewBuilder var splashContent: some View {
-        let vm = RegisterViewModel(coordinator: AuthCoordinator.shared)
-        RegisterView(viewModel: vm)
     }
 }
