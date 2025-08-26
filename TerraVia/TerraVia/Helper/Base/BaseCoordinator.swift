@@ -14,7 +14,7 @@ protocol BaseCoordinator: ObservableObject {
     /// Create a enum named 'Route' inside the coordinator, add cases for each route.
     associatedtype Route
     
-    /// For generic makeRoute(for:) return value.
+    /// Generic makeRoute(for:) return value.
     associatedtype RouteContent: View
     
     /// Common instance for singularity.

@@ -8,16 +8,19 @@
 protocol LoggableError: Error {
     var loggableDescription: String { get }
     var underlyingError: Error? { get }
+    var showErrorAlert: Bool { get }
 }
 
 fileprivate struct AnyLoggableError<E: Error>: LoggableError {
     
     let loggableDescription: String
     let underlyingError: Error?
+    let showErrorAlert: Bool
 
     init(_ error: E) {
         self.loggableDescription = "Unexpected error"
         self.underlyingError = error
+        self.showErrorAlert = false
     }
 }
 

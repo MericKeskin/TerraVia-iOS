@@ -14,6 +14,7 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     // MARK: Scene
     
     enum Scene {
+        
         case register
         case signUp
         case login

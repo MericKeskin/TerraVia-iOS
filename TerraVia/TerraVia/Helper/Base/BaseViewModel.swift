@@ -13,20 +13,22 @@ class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     // MARK: Dependency
     
     private let dependencyProvider: DependencyProviderProtocol
+    
     var managers: ManagerGroup
+    
     var services: ServiceGroup
     
     // MARK: Coordinator
     
     @ObservedObject var coordinator: C
     
-    // MARK: Error
+    // MARK: Preference
+    
+    let appPreferenceProvider: AppPreferenceProvider = .shared
+    
+    // MARK: Error Handler
     
     let errorHandler: ErrorHandler = .shared
-    
-    // MARK: Hud
-    
-    @Published var isShowingHud: Bool = false
     
     // MARK: Loading
     

@@ -10,6 +10,7 @@ import SwiftUI
 struct TVTextField<ErrorField: View> {
     
     enum Style {
+        
         case regular
         case secure
     }

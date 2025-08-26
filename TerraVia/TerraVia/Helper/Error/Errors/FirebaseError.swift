@@ -10,18 +10,19 @@ enum FirebaseError: LoggableError {
     case signUp(failedWith: Error?)
     case login(failedWith: Error?)
     case function(failedWith: Error?)
-    case invalidResponse
+    case firestore(failedWith: Error?)
     
     
     var loggableDescription: String {
         switch self {
-        case .signUp,
-             .login:
+        case .signUp: 
+            "Sign Up failed"
+        case .login:
             "Auth failed"
         case .function:
             "Cloud Function failed"
-        case .invalidResponse:
-            "Invalid response"
+        case .firestore:
+            "Firestore failed"
         }
     }
     
@@ -29,10 +30,45 @@ enum FirebaseError: LoggableError {
         switch self {
         case .signUp(failedWith: let error),
              .login(failedWith: let error),
-             .function(failedWith: let error):
+             .function(failedWith: let error),
+             .firestore(failedWith: let error):
             error
         default:
             nil
+        }
+    }
+    
+    var showErrorAlert: Bool {
+        switch self {
+        case .signUp,
+             .login,
+             .function:
+            true
+        default:
+            false
+        }
+    }
+}
+
+extension FirebaseError {
+    
+    enum Reason: LoggableError {
+        
+        case invalidResponse
+        
+        var loggableDescription: String {
+            switch self {
+            case .invalidResponse:
+                "Invalid response"
+            }
+        }
+        
+        var underlyingError: (any Error)? {
+            nil
+        }
+        
+        var showErrorAlert: Bool {
+            false
         }
     }
 }

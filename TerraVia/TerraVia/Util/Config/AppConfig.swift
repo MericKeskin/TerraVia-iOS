@@ -8,6 +8,7 @@
 import Foundation
 
 enum AppConfig {
+    
     case development
     case staging
     case production

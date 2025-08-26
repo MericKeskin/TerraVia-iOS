@@ -162,6 +162,7 @@ extension RegisterView {
                 TVButton(
                     label: {
                         Text("Forgot password?")
+                            .font(.raleway(size: 16))
                     },
                     background: Color.clear,
                     horizontalPadding: 0,
@@ -191,9 +192,8 @@ extension RegisterView {
     func anotherMethodStack() -> some View {
         TVButton(
             label: {
-                HStack {
-                    Text("Want to register with another email or method?")
-                }
+                Text("Want to register with another email or method?")
+                    .font(.raleway(size: 16))
             },
             background: Color.clear
         ) {

@@ -11,6 +11,7 @@ import SwiftUICore
 final class OnboardingCoordinator: BaseCoordinator {
     
     enum Route {
+        
         case welcome
     }
     

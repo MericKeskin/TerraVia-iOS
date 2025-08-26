@@ -10,18 +10,29 @@ import SwiftUI
 @main
 struct TerraViaApp: App {
     
+    // MARK: AppDelegate
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    // MARK: Error Handler
+    
+    @StateObject private var errorHandler = ErrorHandler.shared
+    
+    // MARK: App Dependency
+    
+    @StateObject private var appCoordinator = AppCoordinator.shared
+    @StateObject private var appPreferenceProvider = AppPreferenceProvider.shared
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                AppFlowView()
-                    .environment(\.font, .raleway(size: 16))
-                    .environmentObject(AppCoordinator.shared)
+                AppFlowView(appCoordinator: appCoordinator)
+                    .environment(\.font, .raleway(size: 22))
                 
                 ErrorView()
-                    .environmentObject(ErrorHandler.shared)
+                    .environmentObject(errorHandler)
             }
+            .preferredColorScheme(appPreferenceProvider.viewTheme.colorScheme)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

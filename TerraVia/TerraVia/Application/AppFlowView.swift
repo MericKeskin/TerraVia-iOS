@@ -9,16 +9,14 @@ import SwiftUI
 
 struct AppFlowView: View {
    
-    @EnvironmentObject var coordinator: AppCoordinator
+    @ObservedObject var appCoordinator: AppCoordinator
     
     var body: some View {
-        Group {
-            NavigationStack(path: $coordinator.path) {
-                coordinator.makeFlow(for: coordinator.root)
-                    .navigationDestination(for: AppFlow.self) { flow in
-                        coordinator.makeFlow(for: flow)
-                    }
-            }
+        NavigationStack(path: $appCoordinator.path) {
+            appCoordinator.makeFlow(for: appCoordinator.root)
+                .navigationDestination(for: AppFlow.self) { flow in
+                    appCoordinator.makeFlow(for: flow)
+                }
         }
     }
 }

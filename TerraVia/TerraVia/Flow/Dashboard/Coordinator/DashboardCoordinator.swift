@@ -13,6 +13,7 @@ final class DashboardCoordinator: BaseCoordinator {
     static let shared = DashboardCoordinator()
     
     enum Route {
+        
         case home
         case profile
     }

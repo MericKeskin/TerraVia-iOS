@@ -18,7 +18,11 @@ final class ErrorHandler: ObservableObject {
     /// Handles the error.
     func register(_ error: Error) {
         let loggableError = error.eraseToLoggable()
-        activeError = loggableError
+        
+        if loggableError.showErrorAlert {
+            activeError = loggableError
+        }
+        
         Log.error(loggableError)
     }
 

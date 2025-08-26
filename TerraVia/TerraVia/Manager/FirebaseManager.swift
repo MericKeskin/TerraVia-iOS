@@ -8,8 +8,9 @@
 import FirebaseAuth
 import FirebaseFunctions
 import FirebaseFirestore
+import SwiftUICore
 
-protocol FirebaseManagerProtocol {
+protocol FirebaseManagerProtocol: BaseManager {
     
     // MARK: Authentication
     
@@ -21,8 +22,6 @@ protocol FirebaseManagerProtocol {
 final class FirebaseManager: FirebaseManagerProtocol {
     
     static let shared = FirebaseManager()
-    
-    let errorHandler: ErrorHandler = .shared
 }
 
 // MARK: - Authentication
@@ -30,52 +29,86 @@ final class FirebaseManager: FirebaseManagerProtocol {
 extension FirebaseManager {
     
     func signUp(email: String, password: String, completion: @escaping ((Bool) -> Void)) {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, signUpError in
+            guard let self else { return }
+            
             if let user = result?.user {
-                let userData: [String: Any] = [
-                    "uid": user.uid,
-                    "email": user.email ?? "",
-                    "createdAt": Timestamp(date: Date())
-                ]
+                let userData: [String: Any] = ["email": user.email ?? "",
+                                               "createdAt": Timestamp(date: Date())]
                 
                 let db = Firestore.firestore()
-                db.collection("users-staging").document(user.uid).setData(userData) { firestoreError in
-                    if let firestoreError = firestoreError {
-                        self.errorHandler.register(FirebaseError.signUp(failedWith: firestoreError))
-                        completion(false)
-                    } else {
-                        completion(true)
+                db.collection("users-staging").document(user.uid).setData(userData) { [weak self] setDocError in
+                    guard let self else { return }
+                    
+                    if let setDocError {
+                        self.errorHandler.register(FirebaseError.firestore(failedWith: setDocError))
                     }
                 }
+                
+                completion(true)
             } else {
-                self.errorHandler.register(FirebaseError.signUp(failedWith: error))
+                self.errorHandler.register(FirebaseError.signUp(failedWith: signUpError))
+                
                 completion(false)
             }
         }
     }
     
     func logIn(email: String, password: String, completion: @escaping ((Bool) -> Void)) {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let _ = result?.user {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, loginError in
+            guard let self else { return }
+            
+            if let user = result?.user {
+                let db = Firestore.firestore()
+                let docRef = db.collection("users-staging").document(user.uid)
+                
+                docRef.getDocument { [weak self] document, getDocError in
+                    guard let self else { return }
+                    
+                    if let document {
+                        if document.exists {
+                            docRef.updateData(["lastLoginAt": Timestamp(date: Date())])
+                        } else {
+                            let userData: [String: Any] = ["email": user.email ?? "",
+                                                           "createdAt": Timestamp(date: Date())]
+                            
+                            docRef.setData(userData) { [weak self] setDocError in
+                                guard let self else { return }
+                                
+                                if let setDocError {
+                                    self.errorHandler.register(FirebaseError.firestore(failedWith: setDocError))
+                                }
+                            }
+                        }
+                    } else {
+                        self.errorHandler.register(FirebaseError.firestore(failedWith: getDocError))
+                    }
+                }
+                
                 completion(true)
             } else {
-                self.errorHandler.register(FirebaseError.login(failedWith: error))
+                self.errorHandler.register(FirebaseError.login(failedWith: loginError))
                 completion(false)
             }
         }
     }
     
     func checkEmail(email: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        Functions.functions().httpsCallable("emailCheck").call(["email": email]) { result, error in
+        Functions.functions().httpsCallable("emailCheck").call(["email": email]) { [weak self] result, error in
+            guard let self else { return }
+            
             if let error {
                 self.errorHandler.register(FirebaseError.function(failedWith: error))
+                
                 completion(.failure(error))
-                return
             }
             
             guard let data = result?.data as? [String: Any],
                   let registered = data["registered"] as? Bool else {
-                self.errorHandler.register(FirebaseError.function(failedWith: FirebaseError.invalidResponse))
+                self.errorHandler.register(FirebaseError.function(failedWith: FirebaseError.Reason.invalidResponse))
+
+                completion(.failure(FirebaseError.Reason.invalidResponse))
+                
                 return
             }
             

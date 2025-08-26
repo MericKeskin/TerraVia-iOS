@@ -12,7 +12,16 @@ import SwiftUI
 extension Font {
     
     enum RalewayWeight {
-        case thin, extraLight, light, regular, medium, semiBold, bold, extraBold, black
+        
+        case thin
+        case extraLight
+        case light
+        case regular
+        case medium
+        case semiBold
+        case bold
+        case extraBold
+        case black
     }
     
     static func raleway(weight: RalewayWeight = .regular, size: CGFloat, relativeTo textStyle: TextStyle = .body) -> Font {
@@ -39,7 +48,12 @@ extension Font {
 extension Font {
     
     enum CormorantGaramondWeight {
-        case light, regular, medium, semiBold, bold
+        
+        case light
+        case regular
+        case medium
+        case semiBold
+        case bold
     }
     
     static func cormorantGaramond(weight: CormorantGaramondWeight = .regular, size: CGFloat, relativeTo textStyle: TextStyle = .body) -> Font {

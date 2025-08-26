@@ -6,6 +6,7 @@
 //
 
 enum AppFlow: Hashable {
+    
     case onboarding(OnboardingCoordinator.Route)
     case auth(AuthCoordinator.Route)
     case dashboard(DashboardCoordinator.Route)
