@@ -125,13 +125,3 @@ private extension Preference {
         userDefaults.set(data, forKey: key)
     }
 }
-
-// MARK: - Keys
-
-extension Preference {
-    
-    enum PreferenceKey: String {
-        
-        case viewTheme = "view_theme"
-    }
-}

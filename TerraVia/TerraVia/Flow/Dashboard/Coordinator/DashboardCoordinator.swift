@@ -6,7 +6,7 @@
 //
 
 import Combine
-import SwiftUICore
+import SwiftUI
 
 final class DashboardCoordinator: BaseCoordinator {
     

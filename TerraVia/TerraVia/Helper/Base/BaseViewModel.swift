@@ -6,7 +6,7 @@
 //
 
 import Combine
-import SwiftUICore
+import SwiftUI
 
 class BaseViewModel<C: BaseCoordinator>: ObservableObject {
     

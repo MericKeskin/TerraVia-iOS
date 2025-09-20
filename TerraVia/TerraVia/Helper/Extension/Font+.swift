@@ -11,35 +11,25 @@ import SwiftUI
 
 extension Font {
     
-    enum RalewayWeight {
+    enum RalewayWeight: String {
         
-        case thin
-        case extraLight
-        case light
-        case regular
-        case medium
-        case semiBold
-        case bold
-        case extraBold
-        case black
+        case thin = "Raleway-Thin"
+        case extraLight = "Raleway-ExtraLight"
+        case light = "Raleway-Light"
+        case regular = "Raleway-Regular"
+        case medium = "Raleway-Medium"
+        case semiBold = "Raleway-SemiBold"
+        case bold = "Raleway-Bold"
+        case extraBold = "Raleway-ExtraBold"
+        case black = "Raleway-Black"
     }
     
-    static func raleway(weight: RalewayWeight = .regular, size: CGFloat, relativeTo textStyle: TextStyle = .body) -> Font {
-        var fontName: String {
-            switch weight {
-            case .thin: "Raleway-Thin"
-            case .extraLight: "Raleway-ExtraLight"
-            case .light: "Raleway-Light"
-            case .regular: "Raleway-Regular"
-            case .medium: "Raleway-Medium"
-            case .semiBold: "Raleway-SemiBold"
-            case .bold: "Raleway-Bold"
-            case .extraBold: "Raleway-ExtraBold"
-            case .black: "Raleway-Black"
-            }
-        }
-
-        return .custom(fontName, size: size, relativeTo: textStyle)
+    static func raleway(
+        weight: RalewayWeight = .regular,
+        size: CGFloat,
+        relativeTo textStyle: TextStyle = .body
+    ) -> Font {
+        .custom(weight.rawValue, size: size, relativeTo: textStyle)
     }
 }
 
@@ -47,26 +37,20 @@ extension Font {
 
 extension Font {
     
-    enum CormorantGaramondWeight {
+    enum CormorantGaramondWeight: String {
         
-        case light
-        case regular
-        case medium
-        case semiBold
-        case bold
+        case light = "CormorantGaramond-Light"
+        case regular = "CormorantGaramond-Regular"
+        case medium = "CormorantGaramond-Medium"
+        case semiBold = "CormorantGaramond-SemiBold"
+        case bold = "CormorantGaramond-Bold"
     }
     
-    static func cormorantGaramond(weight: CormorantGaramondWeight = .regular, size: CGFloat, relativeTo textStyle: TextStyle = .body) -> Font {
-        var fontName: String {
-            switch weight {
-            case .light: "CormorantGaramond-Light"
-            case .regular: "CormorantGaramond-Regular"
-            case .medium: "CormorantGaramond-Medium"
-            case .semiBold: "CormorantGaramond-SemiBold"
-            case .bold: "CormorantGaramond-Bold"
-            }
-        }
-        
-        return .custom(fontName, size: size, relativeTo: textStyle)
+    static func cormorantGaramond(
+        weight: CormorantGaramondWeight = .regular,
+        size: CGFloat,
+        relativeTo textStyle: TextStyle = .body
+    ) -> Font {
+        .custom(weight.rawValue, size: size, relativeTo: textStyle)
     }
 }

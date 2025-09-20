@@ -6,13 +6,14 @@
 //
 
 import Combine
-import SwiftUICore
+import SwiftUI
 
 final class OnboardingCoordinator: BaseCoordinator {
     
     enum Route {
         
         case welcome
+        case settle
     }
     
     static let shared = OnboardingCoordinator()
@@ -21,6 +22,8 @@ final class OnboardingCoordinator: BaseCoordinator {
         switch route {
         case .welcome:
             makeWelcomeView()
+        case .settle:
+            makeSettleView()
         }
     }
 }
@@ -32,5 +35,10 @@ private extension OnboardingCoordinator {
     func makeWelcomeView() -> some View {
         let vm = WelcomeViewModel(coordinator: self)
         return WelcomeView(viewModel: vm)
+    }
+    
+    func makeSettleView() -> some View {
+        let vm = SettleViewModel(coordinator: self)
+        return SettleView(viewModel: vm)
     }
 }

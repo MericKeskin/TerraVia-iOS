@@ -6,7 +6,7 @@
 //
 
 import Combine
-import SwiftUICore
+import SwiftUI
 
 protocol BaseCoordinator: ObservableObject {
     
@@ -25,6 +25,10 @@ protocol BaseCoordinator: ObservableObject {
     
     /// Navigates to route inside a flow.
     func navigate(to flow: AppFlow, resetting: Bool)
+    
+    func pop(to flow: AppFlow)
+    
+    func pop(_ k: Int)
 }
 
 extension BaseCoordinator {
@@ -35,5 +39,13 @@ extension BaseCoordinator {
         } else {
             AppCoordinator.shared.navigate(to: flow)
         }
+    }
+    
+    func pop(to flow: AppFlow) {
+        AppCoordinator.shared.pop(to: flow)
+    }
+    
+    func pop(_ k: Int = 1) {
+        AppCoordinator.shared.pop(k)
     }
 }

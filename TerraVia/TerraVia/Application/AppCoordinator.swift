@@ -6,7 +6,7 @@
 //
 
 import Combine
-import SwiftUICore
+import SwiftUI
 
 final class AppCoordinator: ObservableObject {
     
@@ -15,7 +15,7 @@ final class AppCoordinator: ObservableObject {
     
     /// Navigation root.
     /// The view to show when navigation path is empty.
-    @Published var root: AppFlow = .auth(.register)
+    @Published var root: AppFlow = .onboarding(.welcome)
     
     /// Navigation path.
     @Published var path: [AppFlow] = []
@@ -37,9 +37,9 @@ extension AppCoordinator {
     
     /// Reset path with new root.
     func resetPath(with flow: AppFlow) {
-        path.removeAll()
+        popToRoot()
         
-        withAnimation(.smooth) {
+        withAnimation {
             root = flow
         }
     }
@@ -54,13 +54,9 @@ extension AppCoordinator {
     /// Pops routes from navigation path until given route.
     func pop(to flow: AppFlow) {
         if path.count > 1, path.contains(flow) {
-            var k: Int = 0
-            
             while path.last != flow {
-                k += 1
+                path.removeLast()
             }
-            
-            path.removeLast(k)
         }
     }
     

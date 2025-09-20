@@ -55,20 +55,29 @@ extension FirebaseError {
     enum Reason: LoggableError {
         
         case invalidResponse
+        case notOnboarded
         
         var loggableDescription: String {
             switch self {
             case .invalidResponse:
                 "Invalid response"
+            case .notOnboarded:
+                "Onboarding is not completed"
             }
         }
         
         var underlyingError: (any Error)? {
-            nil
+            switch self {
+            default:
+                nil
+            }
         }
         
         var showErrorAlert: Bool {
-            false
+            switch self {
+            default:
+                false
+            }
         }
     }
 }

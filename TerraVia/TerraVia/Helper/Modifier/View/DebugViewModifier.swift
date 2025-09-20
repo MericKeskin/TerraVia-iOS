@@ -17,7 +17,6 @@ struct DebugViewModifier: ViewModifier {
         default:
             content
         }
-        
     }
 }
 

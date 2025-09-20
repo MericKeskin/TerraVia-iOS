@@ -16,7 +16,9 @@ struct AppFlowView: View {
             appCoordinator.makeFlow(for: appCoordinator.root)
                 .navigationDestination(for: AppFlow.self) { flow in
                     appCoordinator.makeFlow(for: flow)
+                        .toolbar(.hidden)
                 }
+                .toolbar(.hidden)
         }
     }
 }

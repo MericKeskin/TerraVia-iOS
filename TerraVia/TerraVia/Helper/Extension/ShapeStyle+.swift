@@ -22,25 +22,51 @@ extension ShapeStyle where Self == Color {
 
 extension ShapeStyle where Self == LinearGradient {
     
-    static var TVBackgroundGradient: LinearGradient {
-        LinearGradient(stops: [.init(color: .backgroundBase, location: 0),
-                               .init(color: .shineTint, location: 0.7),
-                               .init(color: .mainTint, location: 1)],
-                       startPoint: .top,
-                       endPoint: .bottom)
+    static var TVBackgroundPrimaryLinearGradient: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: Color.backgroundPrimary.opacity(1.0), location: 0),
+                .init(color: Color.backgroundPrimary.opacity(0.95), location: 0.5),
+                .init(color: Color.backgroundPrimary.opacity(0.9), location: 1)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
     
-    static var TVButtonGradient: LinearGradient {
-        LinearGradient(stops: [.init(color: .shineTint, location: 0),
-                               .init(color: .mainTint, location: 1)],
-                             startPoint: .topLeading,
-                             endPoint: .bottom)
+    static var TVBackgroundSecondaryLinearGradient: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: Color.backgroundSecondary.opacity(1.0), location: 0),
+                .init(color: Color.backgroundSecondary.opacity(0.95), location: 0.5),
+                .init(color: Color.backgroundSecondary.opacity(0.9), location: 1)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
     
-    static var TVStrokeGradient: LinearGradient {
-        LinearGradient(stops: [.init(color: .shineTint, location: 0),
-                               .init(color: .mainTint, location: 1)],
-                             startPoint: .topLeading,
-                             endPoint: .bottomTrailing)
+    static var TVMainPrimaryLinearGradient: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: Color.mainPrimary.opacity(0.7), location: 0),
+                .init(color: Color.mainPrimary.opacity(0.85), location: 0.3),
+                .init(color: Color.mainPrimary.opacity(1.0), location: 1)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+    
+    static var TVMainSecondaryLinearGradient: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: Color.mainSecondary.opacity(0.7), location: 0),
+                .init(color: Color.mainSecondary.opacity(0.85), location: 0.3),
+                .init(color: Color.mainSecondary.opacity(1.0), location: 1)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 }

@@ -19,10 +19,14 @@ struct RegisterView: View {
     @FocusState private var isCheckPasswordFocused: Bool
     
     var body: some View {
-        BaseView(viewModel: viewModel) { namespace in
+        BaseView(
+            viewModel: viewModel,
+            titleConfiguration: .normal(viewModel.scene.navigationTitle)
+        ) { namespace in
             VStack(spacing: 12) {
                 if viewModel.scene != .register {
                     welcomeStack()
+                        .transition(.asymmetric(insertion: .opacity.animation(.easeInOut(duration: 0.6).delay(0.8)), removal: .opacity.animation(.easeIn(duration: 0.2))))
                 }
                 
                 switch viewModel.scene {
@@ -36,14 +40,12 @@ struct RegisterView: View {
                 
                 if viewModel.scene != .register {
                     anotherMethodStack()
+                        .transition(.opacity)
                 }
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 16)
         }
-        .navigationTitle(viewModel.scene.navigationTitle)
-        .navigationBarTitleDisplayMode(.inline)
-        .debug()
     }
 }
 
@@ -52,19 +54,17 @@ struct RegisterView: View {
 extension RegisterView {
     
     func welcomeStack() -> some View {
-        VStack(spacing: -48) {
+        VStack(spacing: 8) {
             Image(.app)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
             Text("Welcome to \nTerraVia")
-                .foregroundStyle(.textPrimary)
-                .font(.largeTitle)
+                .foregroundStyle(.tintPrimary)
+                .font(.cormorantGaramond(weight: .semiBold, size: 40, relativeTo: .largeTitle))
                 .multilineTextAlignment(.center)
         }
-        .padding(.top, -48)
         .padding(.bottom, 16)
-        .transition(.asymmetric(insertion: .opacity.animation(.easeInOut(duration: 0.8).delay(1.2)), removal: .opacity.animation(.easeIn(duration: 0.2))))
     }
     
     func registerContent(namespace: Namespace.ID) -> some View {
@@ -78,7 +78,7 @@ extension RegisterView {
                 )
                 .keyboardType(.emailAddress)
             }
-            .matchedGeometryEffect(id: "inputStack", in: namespace)
+            .matchedGeometryEffect(id: "register_input_stack", in: namespace)
             
             TVButton(
                 title: "Continue",
@@ -90,7 +90,7 @@ extension RegisterView {
             ) {
                 viewModel.continueButtonTapped(with: viewModel.email)
             }
-            .matchedGeometryEffect(id: "registerButton", in: namespace)
+            .matchedGeometryEffect(id: "register_button_stack", in: namespace)
             
             Spacer()
         }
@@ -125,7 +125,7 @@ extension RegisterView {
                 )
                 .focused($isCheckPasswordFocused)
             }
-            .matchedGeometryEffect(id: "inputStack", in: namespace)
+            .matchedGeometryEffect(id: "register_input_stack", in: namespace)
             
             Spacer()
             
@@ -139,7 +139,7 @@ extension RegisterView {
             ) {
                 viewModel.signUpButtonTapped()
             }
-            .matchedGeometryEffect(id: "registerButton", in: namespace)
+            .matchedGeometryEffect(id: "register_button_stack", in: namespace)
         }
     }
     
@@ -162,16 +162,17 @@ extension RegisterView {
                 TVButton(
                     label: {
                         Text("Forgot password?")
+                            .foregroundStyle(.tintSecondary)
                             .font(.raleway(size: 16))
                     },
-                    background: Color.clear,
+                    buttonStyle: .clear,
                     horizontalPadding: 0,
                     verticalPadding: 0
                 ) {
                     viewModel.forgotPasswordButtonTapped()
                 }
             }
-            .matchedGeometryEffect(id: "inputStack", in: namespace)
+            .matchedGeometryEffect(id: "register_input_stack", in: namespace)
             
             Spacer()
             
@@ -185,7 +186,7 @@ extension RegisterView {
             ) {
                 viewModel.logInButtonTapped()
             }
-            .matchedGeometryEffect(id: "registerButton", in: namespace)
+            .matchedGeometryEffect(id: "register_button_stack", in: namespace)
         }
     }
     
@@ -193,18 +194,18 @@ extension RegisterView {
         TVButton(
             label: {
                 Text("Want to register with another email or method?")
+                    .foregroundStyle(.tintSecondary)
                     .font(.raleway(size: 16))
             },
-            background: Color.clear
+            buttonStyle: .clear
         ) {
             viewModel.anotherMethodButtonTapped()
         }
-        .transition(.opacity.animation(.easeInOut(duration: 1.2)))
     }
 }
 
 #Preview {
     let coordinator: AuthCoordinator = .shared
-    let viewModel = RegisterViewModel(coordinator: coordinator)
+    var viewModel = RegisterViewModel(coordinator: coordinator, scene: .login)
     RegisterView(viewModel: viewModel)
 }

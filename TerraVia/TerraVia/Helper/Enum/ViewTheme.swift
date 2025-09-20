@@ -5,7 +5,7 @@
 //  Created by Meriç Keskin on 24.08.2025.
 //
 
-import SwiftUICore
+import SwiftUI
 
 enum ViewTheme: Codable {
     

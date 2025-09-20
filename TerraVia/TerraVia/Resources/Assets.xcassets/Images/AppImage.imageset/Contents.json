@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "TVAppIcon.png",
+      "filename" : "TVAppImage_1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TVAppIcon 1.png",
+      "filename" : "TVAppImage_2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TVAppIcon 2.png",
+      "filename" : "TVAppImage_3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

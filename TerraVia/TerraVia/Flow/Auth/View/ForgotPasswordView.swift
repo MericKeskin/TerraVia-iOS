@@ -20,6 +20,24 @@ struct ForgotPasswordView: View {
             } action: {
                 viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
             }
+            
+            TVButton {
+                Text("Test Theme Dark")
+            } action: {
+                viewModel.appPreferenceProvider.viewTheme = .dark
+            }
+            
+            TVButton {
+                Text("Test Theme Light")
+            } action: {
+                viewModel.appPreferenceProvider.viewTheme = .light
+            }
+            
+            TVButton {
+                Text("Test Theme Toggle")
+            } action: {
+                viewModel.appPreferenceProvider.viewTheme.toggle()
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Meriç Keskin on 27.06.2025.
 //
 
-import SwiftUICore
+import SwiftUI
 
 extension ContentSizeCategory {
     

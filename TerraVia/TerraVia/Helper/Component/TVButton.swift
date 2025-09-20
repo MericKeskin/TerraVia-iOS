@@ -13,6 +13,12 @@ struct TVButton<Label: View> {
     
     @Environment(\.sizeCategory) var sizeCategory
     
+    // MARK: Preference
+    
+    var colorsAreGradient: Bool {
+        AppPreferenceProvider.shared.colorsAreGradient
+    }
+    
     // MARK: Dynamic
     
     var scaledHorizontalPadding: CGFloat {
@@ -32,7 +38,7 @@ struct TVButton<Label: View> {
     var leadingImage: ImageResource?
     var topImage: ImageResource?
     var bottomImage: ImageResource?
-    var background: (any View)?
+    var buttonStyle: Style
     var horizontalPadding: CGFloat
     var verticalPadding: CGFloat
     var width: CGFloat?
@@ -46,8 +52,8 @@ struct TVButton<Label: View> {
     
     init(
         @ViewBuilder label: () -> Label,
-        background: (any View)? = nil,
-        horizontalPadding: CGFloat = 12,
+        buttonStyle: Style = .filled(.primary),
+        horizontalPadding: CGFloat = 14,
         verticalPadding: CGFloat = 8,
         fill: Bool = false,
         isDisabled: Bool = false,
@@ -57,7 +63,7 @@ struct TVButton<Label: View> {
         self.label = label()
         self.horizontalPadding = horizontalPadding
         self.verticalPadding = verticalPadding
-        self.background = background
+        self.buttonStyle = buttonStyle
         self.fill = fill
         self.isDisabled = isDisabled
         self.isLoading = isLoading
@@ -76,8 +82,8 @@ extension TVButton where Label == EmptyView {
         leadingImage: ImageResource? = nil,
         topImage: ImageResource? = nil,
         bottomImage: ImageResource? = nil,
-        background: (any View)? = nil,
-        horizontalPadding: CGFloat = 12,
+        buttonStyle: Style = .filled(.primary),
+        horizontalPadding: CGFloat = 14,
         verticalPadding: CGFloat = 8,
         width: CGFloat? = nil,
         height: CGFloat? = nil,
@@ -92,7 +98,7 @@ extension TVButton where Label == EmptyView {
         self.leadingImage = leadingImage
         self.topImage = topImage
         self.bottomImage = bottomImage
-        self.background = background
+        self.buttonStyle = buttonStyle
         self.horizontalPadding = horizontalPadding
         self.verticalPadding = verticalPadding
         self.width = width
@@ -116,6 +122,7 @@ extension TVButton: View {
                         .progressViewStyle(.circular)
                 } else {
                     buttonContent
+                        .tint(buttonStyle.tintColor)
                         .frame(maxWidth: width.map { $0 - scaledHorizontalPadding * 2 },
                                maxHeight: height.map { $0 - scaledVerticalPadding * 2 })
                 }
@@ -125,18 +132,12 @@ extension TVButton: View {
             .frame(minWidth: width,
                    maxWidth: fill ? .infinity : nil,
                    minHeight: height)
-        }
-        .contentShape(RoundedRectangle(cornerRadius: 16))
-        .background {
-            if let background {
-                AnyView(background)
-            } else {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.TVButtonGradient)
+            .background {
+                buttonStyle.backgroundView
             }
+            .grayscale(isDisabled ? 1 : 0)
         }
         .disabled(isDisabled || isLoading)
-        .grayscale(isDisabled ? 1 : 0)
         .animation(.easeInOut, value: isDisabled)
         .animation(.easeInOut, value: isLoading)
     }
@@ -145,14 +146,14 @@ extension TVButton: View {
         if let label {
             label
         } else {
-            VStack {
+            VStack(spacing: horizontalPadding) {
                 if let topImage {
                     Image(topImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
                 
-                HStack {
+                HStack(spacing: horizontalPadding) {
                     if let trailingImage {
                         Image(trailingImage)
                             .resizable()
@@ -162,7 +163,6 @@ extension TVButton: View {
                     if let title {
                         Text(title)
                             .font(font ?? .raleway(weight: .semiBold, size: 24, relativeTo: .headline))
-                            .foregroundStyle(.textPrimary)
                     }
                     
                     if let leadingImage {
@@ -177,6 +177,69 @@ extension TVButton: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
+            }
+        }
+    }
+}
+
+// MARK: Button Style
+
+extension TVButton {
+    
+    enum Style {
+        
+        case filled(ColorStyle)
+        case outlined(ColorStyle)
+        case clear
+        case custom(any View, Color = .tintPrimary)
+        
+        enum ColorStyle {
+            
+            case primary
+            case secondary
+            
+            var color: Color {
+                switch self {
+                case .primary:
+                    .mainPrimary
+                case .secondary:
+                    .mainSecondary
+                }
+            }
+            
+            var tintColor: Color {
+                switch self {
+                case .primary:
+                    .tintMainPrimary
+                case .secondary:
+                    .tintMainSecondary
+                }
+            }
+        }
+        
+        @ViewBuilder var backgroundView: some View {
+            switch self {
+            case .filled(let colorStyle):
+                AnyShape(.capsule)
+                    .TVFill(colorStyle.color)
+            case .outlined(let colorStyle):
+                AnyShape(.capsule)
+                    .TVStroke(colorStyle.color)
+            case .clear:
+                Color.clear
+            case .custom(let background, _):
+                AnyView(background)
+            }
+        }
+        
+        var tintColor: Color {
+            switch self {
+            case .filled(let colorStyle):
+                colorStyle.tintColor
+            case .outlined, .clear:
+                .tintPrimary
+            case .custom(_, let tintColor):
+                tintColor
             }
         }
     }

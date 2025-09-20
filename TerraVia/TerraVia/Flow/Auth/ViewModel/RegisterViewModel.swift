@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import SwiftUICore
+import SwiftUI
 
 final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     
@@ -37,6 +37,8 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     
     // MARK: Property
     
+    @Published var isPresented: Bool = true
+    
     @Published var scene: Scene = .register
     
     @Published var email: String = "" {
@@ -63,6 +65,11 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     }
     
     @Published var invalidCheckPassword: Bool = true
+    
+    init(dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared, coordinator: AuthCoordinator, scene: Scene = .register) {
+        super.init(dependencyProvider: dependencyProvider, coordinator: coordinator)
+        self.scene = scene
+    }
 }
 
 // MARK: - View Actions
@@ -139,8 +146,10 @@ private extension RegisterViewModel {
                 DispatchQueue.main.async {
                     if status {
                         self.showLogin()
-                    } else {
+                    } else if self.appPreferenceProvider.onboarded {
                         self.showSignUp()
+                    } else {
+                        self.errorHandler.register(RegisterError.notOnboarded)
                     }
                 }
                 

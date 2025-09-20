@@ -32,8 +32,8 @@ struct TerraViaApp: App {
                 ErrorView()
                     .environmentObject(errorHandler)
             }
-            .preferredColorScheme(appPreferenceProvider.viewTheme.colorScheme)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .preferredColorScheme(appPreferenceProvider.viewTheme.colorScheme)
         }
     }
 }

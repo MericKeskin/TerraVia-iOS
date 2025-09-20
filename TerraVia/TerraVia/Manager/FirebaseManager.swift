@@ -8,7 +8,7 @@
 import FirebaseAuth
 import FirebaseFunctions
 import FirebaseFirestore
-import SwiftUICore
+import SwiftUI
 
 protocol FirebaseManagerProtocol: BaseManager {
     
@@ -101,6 +101,8 @@ extension FirebaseManager {
                 self.errorHandler.register(FirebaseError.function(failedWith: error))
                 
                 completion(.failure(error))
+                
+                return
             }
             
             guard let data = result?.data as? [String: Any],
