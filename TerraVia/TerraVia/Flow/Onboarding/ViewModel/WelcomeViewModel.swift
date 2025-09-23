@@ -9,85 +9,6 @@ import SwiftUI
 
 final class WelcomeViewModel: BaseViewModel<OnboardingCoordinator> {
     
-    enum Scene {
-        
-        case introduce
-        case transition
-        case getStarted
-    }
-    
-    enum Tab: Int, CaseIterable {
-        
-        case first = 1
-        case second
-        case third
-        case fourth
-        
-        var next: Tab? {
-            let all = Self.allCases
-            
-            guard self.rawValue < all.count else { return nil }
-            
-            return all[self.rawValue]
-        }
-
-        var previous: Tab? {
-            let all = Self.allCases
-            
-            guard self.rawValue > 1 else { return nil }
-            
-            return all[self.rawValue - 2]
-        }
-        
-        var image: Image {
-            Image("Onboarding_\(rawValue)")
-        }
-        
-        var title: String {
-            switch self {
-            case .first:
-                "Prepare for Your Journey"
-            case .second:
-                "Start Traveling"
-            case .third:
-                "Snap Your Photos"
-            case .fourth:
-                "Chat with Terry"
-            }
-        }
-        
-        var subtitle: String {
-            switch self {
-            case .first:
-                "Plan your route, book your accommodation, and more."
-            case .second:
-                "Explore the world, one step at a time."
-            case .third:
-                "Capture photos if you wonder where you are, or what you're seeing."
-            case .fourth:
-                "Ask questions and share your photos with Terry."
-            }
-        }
-        
-        var backButtonTitle: String {
-            switch self {
-            case .first:
-                "Skip"
-            default:
-                "Back"
-            }
-        }
-        
-        var nextButtonTitle: String {
-            switch self {
-            case .fourth:
-                "Let's Go"
-            default:
-                "Next"
-            }
-        }
-    }
-    
     @Published var scene: Scene = .introduce
     
     @Published var tab: Tab = .first
@@ -188,6 +109,94 @@ private extension WelcomeViewModel {
         
         withAnimation {
             tab = previous
+        }
+    }
+}
+
+// MARK: - Enums
+
+extension WelcomeViewModel {
+    
+    // MARK: Scene
+    
+    enum Scene {
+        
+        case introduce
+        case transition
+        case getStarted
+    }
+    
+    // MARK: Tab
+    
+    enum Tab: Int, CaseIterable {
+        
+        case first = 1
+        case second
+        case third
+        case fourth
+        
+        var next: Tab? {
+            let all = Self.allCases
+            
+            guard self.rawValue < all.count else { return nil }
+            
+            return all[self.rawValue]
+        }
+
+        var previous: Tab? {
+            let all = Self.allCases
+            
+            guard self.rawValue > 1 else { return nil }
+            
+            return all[self.rawValue - 2]
+        }
+        
+        var image: Image {
+            Image("Onboarding_\(rawValue)")
+        }
+        
+        var title: String {
+            switch self {
+            case .first:
+                "Prepare for Your Journey"
+            case .second:
+                "Start Traveling"
+            case .third:
+                "Snap Your Photos"
+            case .fourth:
+                "Chat with Terry"
+            }
+        }
+        
+        var subtitle: String {
+            switch self {
+            case .first:
+                "Plan your route, book your accommodation, and more."
+            case .second:
+                "Explore the world, one step at a time."
+            case .third:
+                "Capture photos if you wonder where you are, or what you're seeing."
+            case .fourth:
+                "Ask questions and share your photos with Terry."
+            }
+        }
+        
+        var backButtonTitle: String {
+            switch self {
+            case .first:
+                "Skip"
+            default:
+                "Back"
+            }
+        }
+        
+        var nextButtonTitle: String {
+            switch self {
+            case .fourth:
+                "Let's Go"
+            default:
+                "Next"
+            }
         }
     }
 }

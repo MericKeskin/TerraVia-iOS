@@ -154,7 +154,7 @@ extension WelcomeView {
         HStack(spacing: 0) {
             TVButton(
                 title: viewModel.tab.backButtonTitle,
-                font: .raleway(weight: .semiBold, size: 20),
+                font: .raleway(weight: .semiBold, size: 22),
                 buttonStyle: .filled(.secondary)
             ) {
                 viewModel.leftButtonTapped()
@@ -249,7 +249,8 @@ extension WelcomeView {
         VStack(spacing: 8) {
             TVButton(
                 title: "Get Started",
-                font: .raleway(weight: .bold, size: 20),
+                font: .raleway(weight: .bold, size: 22),
+                height: 40,
                 fill: true
             ) {
                 viewModel.getStartedButtonTapped()

@@ -134,8 +134,8 @@ extension TVButton: View {
                    minHeight: height)
             .background {
                 buttonStyle.backgroundView
+                    .opacity(isDisabled ? 0.2 : 1)
             }
-            .grayscale(isDisabled ? 1 : 0)
         }
         .disabled(isDisabled || isLoading)
         .animation(.easeInOut, value: isDisabled)

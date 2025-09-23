@@ -43,7 +43,7 @@ extension TVProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-                Color.mainPrimary.opacity(0.1)
+                color.opacity(0.2)
                     
                 AnyShape(.capsule)
                     .fill(color)

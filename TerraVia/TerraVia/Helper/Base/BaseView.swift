@@ -69,7 +69,7 @@ struct BaseView<Content: View, VM: BaseViewModel<C>, C: BaseCoordinator>: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 16)
                         
-                        if navigationBarConfiguration != .separated {
+                        if navigationBarConfiguration != .blended {
                             AnyShape(.rect)
                                 .TVFill(.borderPrimary, forceNonGradient: true)
                                 .frame(height: 1)
@@ -78,6 +78,7 @@ struct BaseView<Content: View, VM: BaseViewModel<C>, C: BaseCoordinator>: View {
                 }
                 
                 content(animationNamespace)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }
@@ -108,16 +109,21 @@ extension BaseView {
     }
 }
 
-// MARK: - Navigation Bar Configurations
+// MARK: - Navigation Bar Configuration
 
 extension BaseView {
     
     enum NavigationBarConfiguration {
         
         case normal
-        case separated
+        case blended
         case hidden
     }
+}
+
+// MARK: - Navigation Bar Item Configurations
+
+extension BaseView {
     
     enum BackButtonConfiguration {
         

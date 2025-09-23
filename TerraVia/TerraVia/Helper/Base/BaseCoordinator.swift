@@ -11,8 +11,8 @@ import SwiftUI
 protocol BaseCoordinator: ObservableObject {
     
     /// For enumerating the routes.
-    /// Create a enum named 'Route' inside the coordinator, add cases for each route.
-    associatedtype Route
+    /// Create a enum named 'Route' conforming to BaseRoute inside the coordinator, add cases for each route.
+    associatedtype Route: BaseRoute
     
     /// Generic makeRoute(for:) return value.
     associatedtype RouteContent: View
@@ -35,7 +35,7 @@ extension BaseCoordinator {
     
     func navigate(to flow: AppFlow, resetting: Bool = false) {
         if resetting {
-            AppCoordinator.shared.resetPath(with: flow)
+            AppCoordinator.shared.navigate(resettingTo: flow)
         } else {
             AppCoordinator.shared.navigate(to: flow)
         }

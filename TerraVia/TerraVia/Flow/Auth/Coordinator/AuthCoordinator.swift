@@ -12,7 +12,7 @@ final class AuthCoordinator: BaseCoordinator {
     
     static let shared = AuthCoordinator()
     
-    enum Route {
+    enum Route: BaseRoute {
         
         case register
         case forgotPassword

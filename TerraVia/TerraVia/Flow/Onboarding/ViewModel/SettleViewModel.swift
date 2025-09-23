@@ -10,6 +10,8 @@ import Combine
 
 final class SettleViewModel: BaseViewModel<OnboardingCoordinator> {
     
+    @Published var scene: Scene = .language
+    
     @Published var settleProgress: Double = 10
 }
 
@@ -19,17 +21,21 @@ extension SettleViewModel {
     
     func continueButtonTapped() {
         if settleProgress > 120 {
+            setOnboarded()
+            
             routeRegister()
         } else {
-            stepForward()
+            settleForward()
         }
     }
     
-    func previousButtonTapped() {
+    func backButtonTapped() {
         if settleProgress < 20 {
-            routeWelcome()
+            resetOnboarded()
+            
+            routeBack()
         } else {
-            stepBackward()
+            settleBackward()
         }
     }
 }
@@ -38,12 +44,12 @@ extension SettleViewModel {
 
 extension SettleViewModel {
     
-    func routeWelcome() {
-        coordinator.navigate(to: .onboarding(.welcome), resetting: true)
-    }
-    
     func routeRegister() {
         coordinator.navigate(to: .auth(.register))
+    }
+    
+    func routeBack() {
+        coordinator.pop()
     }
 }
 
@@ -51,13 +57,13 @@ extension SettleViewModel {
 
 extension SettleViewModel {
     
-    func stepBackward() {
+    func settleBackward() {
         withAnimation {
             self.settleProgress -= 40
         }
     }
     
-    func stepForward() {
+    func settleForward() {
         withAnimation {
             self.settleProgress += 40
         }
@@ -65,5 +71,22 @@ extension SettleViewModel {
     
     func setOnboarded() {
         appPreferenceProvider.onboarded = true
+    }
+    
+    func resetOnboarded() {
+        appPreferenceProvider.onboarded = false
+    }
+}
+
+// MARK: - Enums
+
+extension SettleViewModel {
+    
+    enum Scene {
+        
+        case transition
+        case language
+        case personality
+        case notification
     }
 }

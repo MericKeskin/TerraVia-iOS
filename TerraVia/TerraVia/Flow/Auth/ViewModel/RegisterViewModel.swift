@@ -11,35 +11,21 @@ import SwiftUI
 
 final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     
-    // MARK: Scene
-    
-    enum Scene {
-        
-        case register
-        case signUp
-        case login
-        
-        var navigationTitle: String {
-            switch self {
-            case .register:
-                "Sign Up or Login"
-            case .signUp:
-                "Sign Up"
-            case .login:
-                "Login"
-            }
-        }
-    }
-    
     // MARK: Dependency
     
     private lazy var firebaseManager = managers.firebaseManager
     
+    private var onboarded: Bool {
+        appPreferenceProvider.onboarded
+    }
+    
     // MARK: Property
     
-    @Published var isPresented: Bool = true
-    
     @Published var scene: Scene = .register
+    
+    var navigationTitle: String {
+        onboarded ? scene.navigationTitle : Scene.login.navigationTitle
+    }
     
     @Published var email: String = "" {
         didSet {
@@ -65,6 +51,8 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
     }
     
     @Published var invalidCheckPassword: Bool = true
+    
+    // MARK: Lifecycle
     
     init(dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared, coordinator: AuthCoordinator, scene: Scene = .register) {
         super.init(dependencyProvider: dependencyProvider, coordinator: coordinator)
@@ -94,6 +82,14 @@ extension RegisterViewModel {
     
     func anotherMethodButtonTapped() {
         showRegister()
+    }
+    
+    func backButtonTapped() {
+        if scene == .register {
+            routeBack()
+        } else {
+            showRegister()
+        }
     }
 }
 
@@ -129,6 +125,10 @@ private extension RegisterViewModel {
     func routeHome() {
         coordinator.navigate(to: .dashboard(.home), resetting: true)
     }
+    
+    func routeBack() {
+        coordinator.pop()
+    }
 }
 
 // MARK: - Firebase
@@ -146,7 +146,7 @@ private extension RegisterViewModel {
                 DispatchQueue.main.async {
                     if status {
                         self.showLogin()
-                    } else if self.appPreferenceProvider.onboarded {
+                    } else if self.onboarded {
                         self.showSignUp()
                     } else {
                         self.errorHandler.register(RegisterError.notOnboarded)
@@ -185,6 +185,31 @@ private extension RegisterViewModel {
             }
             
             self.isLoading = false
+        }
+    }
+}
+
+// MARK: - Enums
+
+extension RegisterViewModel {
+    
+    // MARK: Scene
+    
+    enum Scene {
+        
+        case register
+        case signUp
+        case login
+        
+        var navigationTitle: String {
+            switch self {
+            case .register:
+                "Sign Up or Login"
+            case .signUp:
+                "Sign Up"
+            case .login:
+                "Login"
+            }
         }
     }
 }

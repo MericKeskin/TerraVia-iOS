@@ -14,7 +14,9 @@ struct ProfileView: View {
     @StateObject var viewModel: ProfileViewModel
     
     var body: some View {
-        BaseView(viewModel: viewModel) { _ in
+        BaseView(
+            viewModel: viewModel
+        ) { _ in
             Text("Profile View")
         }
     }

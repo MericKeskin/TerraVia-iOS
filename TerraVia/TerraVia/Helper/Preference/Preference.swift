@@ -24,7 +24,6 @@ struct Preference<Value: Codable> {
     private var key: String
     private var defaultValue: Value
     
-    private var storedValue: Value
     private var subject: CurrentValueSubject<Value, Never>
     
     init(suiteName: String? = nil, key: PreferenceKey, defaultValue: Value) {
@@ -34,7 +33,6 @@ struct Preference<Value: Codable> {
         self.defaultValue = defaultValue
         
         let initialValue = Self.read(from: key.rawValue, with: userDefaults) ?? defaultValue
-        self.storedValue = initialValue
         self.subject = .init(initialValue)
     }
     
@@ -45,12 +43,10 @@ struct Preference<Value: Codable> {
             }
         }
         nonmutating set {
-            queue.async(flags: .barrier) {
+            queue.sync(flags: .barrier) {
                 Self.write(newValue, to: key, with: userDefaults)
 
-                DispatchQueue.main.async {
-                    subject.send(newValue)
-                }
+                subject.send(newValue)
             }
         }
     }

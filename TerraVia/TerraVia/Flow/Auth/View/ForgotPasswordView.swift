@@ -12,31 +12,33 @@ struct ForgotPasswordView: View {
     @StateObject var viewModel: ForgotPasswordViewModel
     
     var body: some View {
-        BaseView(viewModel: viewModel) { _ in 
-            Text("Forgot Password View")
-            
-            TVButton {
-                Text("Test Reset Root")
-            } action: {
-                viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
-            }
-            
-            TVButton {
-                Text("Test Theme Dark")
-            } action: {
-                viewModel.appPreferenceProvider.viewTheme = .dark
-            }
-            
-            TVButton {
-                Text("Test Theme Light")
-            } action: {
-                viewModel.appPreferenceProvider.viewTheme = .light
-            }
-            
-            TVButton {
-                Text("Test Theme Toggle")
-            } action: {
-                viewModel.appPreferenceProvider.viewTheme.toggle()
+        BaseView(
+            viewModel: viewModel,
+            titleConfiguration: .normal("Forgot Password")
+        ) { _ in
+            VStack(spacing: 8) {
+                // TODO: Forgot Password View
+                
+                Spacer()
+                
+                TVButton(
+                    label: {
+                        Text("Test Theme Toggle")
+                    },
+                    buttonStyle: .filled(.secondary)
+                ) {
+                    viewModel.appPreferenceProvider.viewTheme.toggle()
+                }
+                
+                Spacer()
+                
+                TVButton(
+                    label: {
+                        Text("Test Route Dashboard")
+                    } 
+                ) {
+                    viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
+                }
             }
         }
     }

@@ -14,8 +14,11 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     
     var body: some View {
-        BaseView(viewModel: viewModel) { _ in
+        BaseView(
+            viewModel: viewModel
+        ) { _ in
             Text("Home View")
+//                .transition(.opacity)
         }
     }
 }

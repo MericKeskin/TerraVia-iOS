@@ -10,7 +10,7 @@ import SwiftUI
 
 final class OnboardingCoordinator: BaseCoordinator {
     
-    enum Route {
+    enum Route: BaseRoute {
         
         case welcome
         case settle

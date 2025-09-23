@@ -21,7 +21,8 @@ struct RegisterView: View {
     var body: some View {
         BaseView(
             viewModel: viewModel,
-            titleConfiguration: .normal(viewModel.scene.navigationTitle)
+            backButtonConfiguration: .custom(viewModel.backButtonTapped),
+            titleConfiguration: .normal(viewModel.navigationTitle)
         ) { namespace in
             VStack(spacing: 12) {
                 if viewModel.scene != .register {
@@ -61,29 +62,27 @@ extension RegisterView {
             
             Text("Welcome to \nTerraVia")
                 .foregroundStyle(.tintPrimary)
-                .font(.cormorantGaramond(weight: .semiBold, size: 40, relativeTo: .largeTitle))
+                .font(.cormorantGaramond(weight: .semiBold, size: 40))
                 .multilineTextAlignment(.center)
         }
         .padding(.bottom, 16)
     }
     
     func registerContent(namespace: Namespace.ID) -> some View {
-        VStack {
-            VStack {
-                TVTextField(
-                    "Email",
-                    input: $viewModel.email,
-                    font: .raleway(size: 20),
-                    height: 56
-                )
-                .keyboardType(.emailAddress)
-            }
+        VStack(spacing: 8) {
+            TVTextField(
+                "Email",
+                input: $viewModel.email,
+                font: .raleway(size: 22),
+                height: 56
+            )
+            .keyboardType(.emailAddress)
             .matchedGeometryEffect(id: "register_input_stack", in: namespace)
             
             TVButton(
                 title: "Continue",
-                font: .raleway(weight: .bold, size: 22, relativeTo: .headline),
-                height: 56,
+                font: .raleway(weight: .bold, size: 22),
+                height: 40,
                 fill: true,
                 isDisabled: viewModel.invalidEmail,
                 isLoading: viewModel.isLoading
@@ -93,11 +92,20 @@ extension RegisterView {
             .matchedGeometryEffect(id: "register_button_stack", in: namespace)
             
             Spacer()
+            
+            TVButton(
+                title: "Test Route Dashboard",
+                font: .raleway(weight: .bold, size: 22),
+                height: 40,
+                fill: true,
+            ) {
+                viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
+            }
         }
     }
     
     func signUpContent(namespace: Namespace.ID) -> some View {
-        VStack {
+        VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
                 TVTextField(
                     "Password",
@@ -131,8 +139,8 @@ extension RegisterView {
             
             TVButton(
                 title: "Sign Up",
-                font: .raleway(weight: .bold, size: 22, relativeTo: .headline),
-                height: 56,
+                font: .raleway(weight: .bold, size: 22),
+                height: 40,
                 fill: true,
                 isDisabled: viewModel.invalidPassword || viewModel.invalidCheckPassword,
                 isLoading: viewModel.isLoading
@@ -144,8 +152,8 @@ extension RegisterView {
     }
     
     func loginContent(namespace: Namespace.ID) -> some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 4) {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 8) {
                 TVTextField(
                     "Password",
                     input: $viewModel.password,
@@ -178,8 +186,8 @@ extension RegisterView {
             
             TVButton(
                 title: "Log In",
-                font: .raleway(weight: .bold, size: 22, relativeTo: .headline),
-                height: 56,
+                font: .raleway(weight: .bold, size: 22),
+                height: 40,
                 fill: true,
                 isDisabled: viewModel.invalidPassword,
                 isLoading: viewModel.isLoading
@@ -206,6 +214,6 @@ extension RegisterView {
 
 #Preview {
     let coordinator: AuthCoordinator = .shared
-    var viewModel = RegisterViewModel(coordinator: coordinator, scene: .login)
+    let viewModel = RegisterViewModel(coordinator: coordinator, scene: .login)
     RegisterView(viewModel: viewModel)
 }

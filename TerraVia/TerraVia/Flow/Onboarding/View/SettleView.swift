@@ -14,8 +14,8 @@ struct SettleView: View {
     var body: some View {
         BaseView(
             viewModel: viewModel,
-            navigationBarConfiguration: .separated,
-            backButtonConfiguration: .custom(viewModel.previousButtonTapped),
+            navigationBarConfiguration: .blended,
+            backButtonConfiguration: .custom(viewModel.backButtonTapped),
             leadingItemConfiguration: .hidden,
             trailingItemConfiguration: .custom(progressBarStack)
         ) { _ in
@@ -25,7 +25,8 @@ struct SettleView: View {
                     
                     TVButton(
                         title: "Continue",
-                        font: .raleway(weight: .semiBold, size: 20),
+                        font: .raleway(weight: .bold, size: 22),
+                        height: 40,
                         fill: true
                     ) {
                         viewModel.continueButtonTapped()

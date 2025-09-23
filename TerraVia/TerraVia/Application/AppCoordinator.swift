@@ -36,11 +36,18 @@ extension AppCoordinator {
     }
     
     /// Reset path with new root.
-    func resetPath(with flow: AppFlow) {
-        popToRoot()
+    func navigate(resettingTo flow: AppFlow) {
+        navigate(to: flow)
         
-        withAnimation {
-            root = flow
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction) {
+                self.popToRoot()
+                self.root = flow
+            }
         }
     }
     
