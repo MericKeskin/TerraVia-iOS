@@ -12,6 +12,7 @@ final class OnboardingCoordinator: BaseCoordinator {
     
     enum Route: BaseRoute {
         
+        case introduce
         case welcome
         case settle
     }
@@ -20,6 +21,8 @@ final class OnboardingCoordinator: BaseCoordinator {
     
     func makeRoute(for route: Route) -> some View {
         switch route {
+        case .introduce:
+            makeIntroduceView()
         case .welcome:
             makeWelcomeView()
         case .settle:
@@ -31,6 +34,11 @@ final class OnboardingCoordinator: BaseCoordinator {
 // MARK: - Make Routes
 
 private extension OnboardingCoordinator {
+    
+    func makeIntroduceView() -> some View {
+        let vm = IntroduceViewModel(coordinator: self)
+        return IntroduceView(viewModel: vm)
+    }
     
     func makeWelcomeView() -> some View {
         let vm = WelcomeViewModel(coordinator: self)

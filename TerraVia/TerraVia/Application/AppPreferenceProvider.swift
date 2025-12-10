@@ -17,6 +17,12 @@ final class AppPreferenceProvider: PreferenceObject {
     @Preference(key: .colorsAreGradient, defaultValue: false)
     var colorsAreGradient: Bool
     
+    @Preference(key: .username, defaultValue: "")
+    var username: String
+    
+    @Preference(key: .languageTerry, defaultValue: .english)
+    var languageTerry: LanguageTerry
+    
     @Preference(key: .onboarded, defaultValue: false)
     var onboarded: Bool
 }
@@ -28,7 +34,9 @@ extension Preference {
     enum PreferenceKey: String {
         
         case viewTheme = "view_theme"
-        case onboarded = "onboarded"
         case colorsAreGradient = "colors_are_gradient"
+        case onboarded = "onboarded"
+        case username = "username"
+        case languageTerry = "language_terry"
     }
 }

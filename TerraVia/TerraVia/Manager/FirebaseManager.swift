@@ -33,11 +33,14 @@ extension FirebaseManager {
             guard let self else { return }
             
             if let user = result?.user {
-                let userData: [String: Any] = ["email": user.email ?? "",
-                                               "createdAt": Timestamp(date: Date())]
-                
                 let db = Firestore.firestore()
-                db.collection("users-staging").document(user.uid).setData(userData) { [weak self] setDocError in
+                let collection = db.collection("users-staging")
+                let document = collection.document()
+                let userData: [String: Any] = ["firebase_id": document.documentID,
+                                               "email": user.email ?? "",
+                                               "created_at": Timestamp(date: Date())]
+                
+                document.setData(userData) { [weak self] setDocError in
                     guard let self else { return }
                     
                     if let setDocError {

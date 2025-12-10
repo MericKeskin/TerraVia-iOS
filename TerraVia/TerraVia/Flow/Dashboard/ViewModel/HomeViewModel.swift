@@ -8,3 +8,21 @@
 final class HomeViewModel: BaseViewModel<DashboardCoordinator> {
     
 }
+
+// MARK: - View Actions
+
+extension HomeViewModel {
+    
+    func profileButtonTapped() {
+        routeProfile()
+    }
+}
+
+// MARK: - Navigation
+
+private extension HomeViewModel {
+    
+    func routeProfile() {
+        coordinator.navigate(to: .dashboard(.profile))
+    }
+}

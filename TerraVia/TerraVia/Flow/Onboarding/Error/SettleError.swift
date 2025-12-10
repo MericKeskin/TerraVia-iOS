@@ -1,17 +1,17 @@
 //
-//  RegisterError.swift
+//  SettleError.swift
 //  TerraVia
 //
-//  Created by Meriç Keskin on 1.09.2025.
+//  Created by Meriç Keskin on 4.11.2025.
 //
 
-enum RegisterError: LoggableError {
+enum SettleError: LoggableError {
     
-    case notOnboarded
+    case typeTaskFastForward
     
     var loggableDescription: String {
         switch self {
-        case .notOnboarded: "Can't sign up, onboarding is not completed yet."
+        case .typeTaskFastForward: "Fast-forwarded typing."
         }
     }
     
@@ -23,7 +23,6 @@ enum RegisterError: LoggableError {
     
     var showErrorAlert: Bool {
         switch self {
-        case .notOnboarded: true
         default: false
         }
     }

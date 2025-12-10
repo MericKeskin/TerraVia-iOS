@@ -15,10 +15,28 @@ struct HomeView: View {
     
     var body: some View {
         BaseView(
-            viewModel: viewModel
+            viewModel: viewModel,
+            titleConfiguration: .normal(title: "Home"),
+            trailingItemConfiguration: .custom(trailingItemStack)
         ) { _ in
             Text("Home View")
-//                .transition(.opacity)
+        }
+    }
+}
+
+extension HomeView {
+    
+    @ViewBuilder
+    var trailingItemStack: some View {
+        TVButton(
+            label: {
+                Image(systemName: "person.fill")
+            },
+            buttonStyle: .clear,
+            horizontalPadding: 0,
+            verticalPadding: 0
+        ) {
+            viewModel.profileButtonTapped()
         }
     }
 }

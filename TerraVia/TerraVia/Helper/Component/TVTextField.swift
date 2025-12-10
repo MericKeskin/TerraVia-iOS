@@ -9,37 +9,67 @@ import SwiftUI
 
 struct TVTextField<ErrorField: View> {
     
+    // MARK: Environment
+    
+    @Environment(\.sizeCategory) var sizeCategory
+    
     // MARK: Dynamic
     
-    @ScaledMetric var horizontalPadding: CGFloat = 20
-    @ScaledMetric var verticalPadding: CGFloat = 8
+    var scaledHorizontalPadding: CGFloat {
+        horizontalPadding * sizeCategory.scaleFactor
+    }
+    
+    var scaledVerticalPadding: CGFloat  {
+        verticalPadding * sizeCategory.scaleFactor
+    }
     
     // MARK: Parameter
     
     var placeholder: String
     @Binding var input: String
-    var style: Style
     var font: Font?
+    var textAlignment: TextAlignment
+    var textFieldStyle: Style
+    var focused: FocusState<Bool>.Binding
+    var autoCapitalizationType: UITextAutocapitalizationType
+    var horizontalPadding: CGFloat
+    var verticalPadding: CGFloat
+    var width: CGFloat?
+    var height: CGFloat?
+    var isSecured: Bool
     var isError: Bool
     var errorField: ErrorField?
-    var height: CGFloat?
     
     init(
         _ placeholder: String = "",
         input: Binding<String>,
-        style: Style = .normal,
-        font: Font? = nil,
+        font: Font = .raleway(weight: .medium, size: 20),
+        textAlignment: TextAlignment = .leading,
+        textFieldStyle: Style = .outlined(with: .primary),
+        focused: FocusState<Bool>.Binding = FocusState().projectedValue,
+        autoCapitalizationType: UITextAutocapitalizationType = .none,
+        horizontalPadding: CGFloat = 20,
+        verticalPadding: CGFloat = 8,
+        width: CGFloat? = nil,
+        height: CGFloat? = nil,
+        isSecured: Bool = false,
         isError: Bool = false,
-        @ViewBuilder errorField: () -> ErrorField = { EmptyView() },
-        height: CGFloat? = nil
+        @ViewBuilder errorField: () -> ErrorField = { EmptyView() }
     ) {
         self.placeholder = placeholder
         self._input = input
-        self.style = style
         self.font = font
+        self.textAlignment = textAlignment
+        self.textFieldStyle = textFieldStyle
+        self.focused = focused
+        self.autoCapitalizationType = autoCapitalizationType
+        self.horizontalPadding = horizontalPadding
+        self.verticalPadding = verticalPadding
+        self.width = width
+        self.height = height
+        self.isSecured = isSecured
         self.isError = isError
         self.errorField = errorField()
-        self.height = height
     }
 }
 
@@ -50,34 +80,35 @@ extension TVTextField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Group {
-                switch style {
-                case .normal:
-                    TextField(
-                        text: $input,
-                        prompt: Text(placeholder).foregroundColor(.tintSecondary),
-                        label: {}
-                    )
-                case .secure:
+                if isSecured {
                     SecureField(
                         text: $input,
-                        prompt: Text(placeholder).foregroundColor(.tintSecondary),
+                        prompt: Text(placeholder).foregroundColor(textFieldStyle.placeholderTint),
+                        label: {}
+                    )
+                } else {
+                    TextField(
+                        text: $input,
+                        prompt: Text(placeholder).foregroundColor(textFieldStyle.placeholderTint),
                         label: {}
                     )
                 }
             }
-            .font(font ?? .raleway(weight: .medium, size: 20, relativeTo: .body))
-            .tint(.tintPrimary)
-            .autocapitalization(.none)
-            .padding(.horizontal, horizontalPadding)
-            .padding(.vertical, verticalPadding)
-            .frame(minHeight: height)
+            .font(font)
+            .tint(textFieldStyle.inputTint)
+            .multilineTextAlignment(textAlignment)
+            .focused(focused)
+            .autocapitalization(autoCapitalizationType)
+            .padding(.horizontal, scaledHorizontalPadding)
+            .padding(.vertical, scaledVerticalPadding)
+            .frame(maxWidth: width,
+                   minHeight: height)
             .background {
                 if isError {
                     AnyShape(.capsule)
                         .TVStroke(.negative, lineWidth: 2, forceNonGradient: true)
                 } else {
-                    AnyShape(.capsule)
-                        .TVStroke(.mainPrimary, lineWidth: 2)
+                    textFieldStyle.backgroundView
                 }
             }
             
@@ -95,8 +126,57 @@ extension TVTextField {
     
     enum Style {
         
-        case normal
-        case secure
+        case outlined(with: ColorStyle)
+        case clear
+        case custom(any View,
+                    placeholderTint: Color = .tintSecondary,
+                    inputTint: Color = .tintPrimary)
+        
+        enum ColorStyle {
+            
+            case primary
+            case secondary
+            
+            var color: Color {
+                switch self {
+                case .primary:
+                    .mainPrimary
+                case .secondary:
+                    .mainSecondary
+                }
+            }
+        }
+        
+        @ViewBuilder
+        var backgroundView: some View {
+            switch self {
+            case .outlined(with: let colorStyle):
+                AnyShape(.capsule)
+                    .TVStroke(colorStyle.color, lineWidth: 2)
+            case .clear:
+                Color.clear
+            case .custom(let background, _, _):
+                AnyView(background)
+            }
+        }
+        
+        var placeholderTint: Color {
+            switch self {
+            case .outlined, .clear:
+                .tintSecondary
+            case .custom(_, let placeholderTint, _):
+                placeholderTint
+            }
+        }
+        
+        var inputTint: Color {
+            switch self {
+            case .outlined, .clear:
+                .tintPrimary
+            case .custom(_, _, let inputTint):
+                inputTint
+            }
+        }
     }
 }
 

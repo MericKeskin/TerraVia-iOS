@@ -129,7 +129,7 @@ extension BaseView {
         
         case normal
         case hidden
-        case custom(() -> Void)
+        case custom(action: () -> Void)
         
         var isHidden: Bool {
             switch self {
@@ -156,7 +156,7 @@ extension BaseView {
         
         case normal
         case hidden
-        case custom(any View)
+        case custom(any View, spaced: Bool = true)
         
         @ViewBuilder
         var leadingStack: some View {
@@ -165,15 +165,19 @@ extension BaseView {
                 Spacer()
             case .hidden:
                 EmptyView()
-            case .custom(let content):
+            case .custom(let content, let spaced):
                 AnyView(content)
+                
+                if spaced {
+                    Spacer()
+                }
             }
         }
     }
     
     enum TitleConfiguration {
         
-        case normal(String)
+        case normal(title: String)
         case hidden
         case custom(any View)
         
@@ -197,7 +201,7 @@ extension BaseView {
         
         case normal
         case hidden
-        case custom(any View)
+        case custom(any View, spaced: Bool = true)
         
         @ViewBuilder
         var trailingStack: some View {
@@ -206,7 +210,11 @@ extension BaseView {
                 Spacer()
             case .hidden:
                 EmptyView()
-            case .custom(let content):
+            case .custom(let content, let spaced):
+                if spaced {
+                    Spacer()
+                }
+                
                 AnyView(content)
             }
         }

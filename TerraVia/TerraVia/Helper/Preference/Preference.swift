@@ -27,8 +27,9 @@ struct Preference<Value: Codable> {
     private var subject: CurrentValueSubject<Value, Never>
     
     init(suiteName: String? = nil, key: PreferenceKey, defaultValue: Value) {
-        self.userDefaults = Self.setUserDefaults(suiteName: suiteName)
         self.queue = DispatchQueue(label: "com.preference.\(key.rawValue)", attributes: .concurrent)
+        
+        self.userDefaults = Self.setUserDefaults(suiteName: suiteName)
         self.key = key.rawValue
         self.defaultValue = defaultValue
         
@@ -38,21 +39,38 @@ struct Preference<Value: Codable> {
     
     var wrappedValue: Value {
         get {
-            queue.asyncAndWait {
+            queue.sync {
                 subject.value
             }
         }
-        nonmutating set {
-            queue.sync(flags: .barrier) {
-                Self.write(newValue, to: key, with: userDefaults)
-
-                subject.send(newValue)
-            }
+        set {
+            update { $0 = newValue }
         }
     }
     
     var projectedValue: Preference<Value>.PreferencePublisher {
         PreferencePublisher(subject: subject)
+    }
+}
+
+// MARK: - Update
+
+extension Preference {
+    
+    /// Thread-safe in-place mutation with automatic save
+    mutating func update(_ transform: (inout Value) -> Void) {
+        queue.sync(flags: .barrier) {
+            var update = subject.value
+            transform(&update)
+            
+            Self.write(update, to: key, with: userDefaults)
+            subject.send(update)
+        }
+    }
+
+    /// Thread-safe append operation for array-like persistences
+    mutating func append(_ element: Value.Element) where Value: RangeReplaceableCollection {
+        update { $0.append(element) }
     }
 }
 

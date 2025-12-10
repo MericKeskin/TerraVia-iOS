@@ -33,6 +33,8 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
         }
     }
     
+    var emailFocusState: FocusState<Bool>.Binding?
+    
     @Published var invalidEmail: Bool = true
     
     @Published var password: String = "" {
@@ -42,7 +44,17 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
         }
     }
     
+    var passwordFocusState: FocusState<Bool>.Binding?
+    
+    var isPasswordFocused: Bool {
+        passwordFocusState?.wrappedValue == true
+    }
+    
     @Published var invalidPassword: Bool = true
+    
+    var isPasswordError: Bool {
+        invalidPassword && !isPasswordFocused && !password.isEmpty
+    }
     
     @Published var checkPassword: String = "" {
         didSet {
@@ -50,12 +62,27 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
         }
     }
     
+    var checkPasswordFocusState: FocusState<Bool>.Binding?
+    
+    var isCheckPasswordFocused: Bool {
+        checkPasswordFocusState?.wrappedValue == true
+    }
+    
     @Published var invalidCheckPassword: Bool = true
+    
+    var isCheckPasswordError: Bool {
+        invalidCheckPassword && !isCheckPasswordFocused && !checkPassword.isEmpty
+    }
     
     // MARK: Lifecycle
     
-    init(dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared, coordinator: AuthCoordinator, scene: Scene = .register) {
+    init(
+        dependencyProvider: DependencyProviderProtocol = DependencyProvider.shared,
+        coordinator: AuthCoordinator,
+        scene: Scene = .register
+    ) {
         super.init(dependencyProvider: dependencyProvider, coordinator: coordinator)
+        
         self.scene = scene
     }
 }
@@ -65,69 +92,43 @@ final class RegisterViewModel: BaseViewModel<AuthCoordinator> {
 extension RegisterViewModel {
     
     func continueButtonTapped(with email: String) {
+        defocusTextFieldWithAnimation(with: &emailFocusState)
+        
         submitEmail(email)
     }
     
     func signUpButtonTapped() {
+        defocusTextFieldWithAnimation(with: &passwordFocusState)
+        defocusTextFieldWithAnimation(with: &checkPasswordFocusState)
+        
         signUp()
     }
     
     func logInButtonTapped() {
+        defocusTextFieldWithAnimation(with: &passwordFocusState)
+        
         logIn()
     }
     
     func forgotPasswordButtonTapped() {
+        defocusTextFieldWithAnimation(with: &passwordFocusState)
+        
         routeForgotPassword()
     }
     
     func anotherMethodButtonTapped() {
-        showRegister()
+        defocusTextFieldWithAnimation(with: &passwordFocusState)
+        defocusTextFieldWithAnimation(with: &checkPasswordFocusState)
+        
+        showRegisterWithAnimation()
     }
     
     func backButtonTapped() {
         if scene == .register {
             routeBack()
         } else {
-            showRegister()
+            showRegisterWithAnimation()
         }
-    }
-}
-
-// MARK: - Navigation
-
-private extension RegisterViewModel {
-    
-    func showSignUp() {
-        withAnimation(.easeInOut(duration: 1.2)) {
-            scene = .signUp
-        }
-    }
-    
-    func showLogin() {
-        withAnimation(.easeInOut(duration: 1.2)) {
-            scene = .login
-        }
-    }
-    
-    func showRegister() {
-        password = ""
-        checkPassword = ""
-        
-        withAnimation(.easeInOut(duration: 1.2)) {
-            scene = .register
-        }
-    }
-    
-    func routeForgotPassword() {
-        coordinator.navigate(to: .auth(.forgotPassword))
-    }
-    
-    func routeHome() {
-        coordinator.navigate(to: .dashboard(.home), resetting: true)
-    }
-    
-    func routeBack() {
-        coordinator.pop()
     }
 }
 
@@ -143,13 +144,15 @@ private extension RegisterViewModel {
             
             switch result {
             case .success(let status):
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    
                     if status {
-                        self.showLogin()
-                    } else if self.onboarded {
-                        self.showSignUp()
+                        showLoginWithAnimation()
+                    } else if onboarded {
+                        showSignUpWithAnimation()
                     } else {
-                        self.errorHandler.register(RegisterError.notOnboarded)
+                        errorHandler.register(RegisterError.notOnboarded)
                     }
                 }
                 
@@ -186,6 +189,68 @@ private extension RegisterViewModel {
             
             self.isLoading = false
         }
+    }
+}
+
+// MARK: - Logic
+
+private extension RegisterViewModel {
+    
+    func showSignUpWithAnimation(
+        duration: TimeInterval = 0.8,
+        delay: TimeInterval = 0.0
+    ) {
+        withAnimation(.easeInOut(duration: duration).delay(delay)) {
+            scene = .signUp
+        }
+    }
+    
+    func showLoginWithAnimation(
+        duration: TimeInterval = 0.8,
+        delay: TimeInterval = 0.0
+    ) {
+        withAnimation(.easeInOut(duration: duration).delay(delay)) {
+            scene = .login
+        }
+    }
+    
+    func showRegisterWithAnimation(
+        duration: TimeInterval = 0.8,
+        delay: TimeInterval = 0.0
+    ) {
+        password = ""
+        checkPassword = ""
+        
+        withAnimation(.easeInOut(duration: duration).delay(delay)) {
+            scene = .register
+        }
+    }
+    
+    func defocusTextFieldWithAnimation(
+        with focusState: inout FocusState<Bool>.Binding?,
+        duration: TimeInterval = 0.2,
+        delay: TimeInterval = 0.0
+    ) {
+        withAnimation(.smooth(duration: duration).delay(delay)) {
+            focusState?.defocus()
+        }
+    }
+}
+
+// MARK: - Navigation
+
+private extension RegisterViewModel {
+    
+    func routeForgotPassword() {
+        coordinator.navigate(to: .auth(.forgotPassword))
+    }
+    
+    func routeHome() {
+        coordinator.navigate(to: .dashboard(.home), resetting: true)
+    }
+    
+    func routeBack() {
+        coordinator.pop()
     }
 }
 

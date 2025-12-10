@@ -14,7 +14,7 @@ struct ForgotPasswordView: View {
     var body: some View {
         BaseView(
             viewModel: viewModel,
-            titleConfiguration: .normal("Forgot Password")
+            titleConfiguration: .normal(title: "Forgot Password")
         ) { _ in
             VStack(spacing: 8) {
                 // TODO: Forgot Password View
@@ -25,7 +25,7 @@ struct ForgotPasswordView: View {
                     label: {
                         Text("Test Theme Toggle")
                     },
-                    buttonStyle: .filled(.secondary)
+                    buttonStyle: .filled(with: .secondary)
                 ) {
                     viewModel.appPreferenceProvider.viewTheme.toggle()
                 }

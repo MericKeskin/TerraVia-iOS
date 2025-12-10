@@ -52,18 +52,22 @@ struct TVButton<Label: View> {
     
     init(
         @ViewBuilder label: () -> Label,
-        buttonStyle: Style = .filled(.primary),
-        horizontalPadding: CGFloat = 14,
-        verticalPadding: CGFloat = 8,
+        buttonStyle: Style = .filled(with: .primary),
+        horizontalPadding: CGFloat = 22,
+        verticalPadding: CGFloat = 12,
+        width: CGFloat? = nil,
+        height: CGFloat? = nil,
         fill: Bool = false,
         isDisabled: Bool = false,
         isLoading: Bool = false,
         action: @escaping @MainActor () -> Void
     ) {
         self.label = label()
+        self.buttonStyle = buttonStyle
         self.horizontalPadding = horizontalPadding
         self.verticalPadding = verticalPadding
-        self.buttonStyle = buttonStyle
+        self.width = width
+        self.height = height
         self.fill = fill
         self.isDisabled = isDisabled
         self.isLoading = isLoading
@@ -77,14 +81,14 @@ extension TVButton where Label == EmptyView {
     
     init(
         title: String? = nil,
-        font: Font? = nil,
+        font: Font = .raleway(weight: .semiBold, size: 24),
         trailingImage: ImageResource? = nil,
         leadingImage: ImageResource? = nil,
         topImage: ImageResource? = nil,
         bottomImage: ImageResource? = nil,
-        buttonStyle: Style = .filled(.primary),
-        horizontalPadding: CGFloat = 14,
-        verticalPadding: CGFloat = 8,
+        buttonStyle: Style = .filled(with: .primary),
+        horizontalPadding: CGFloat = 22,
+        verticalPadding: CGFloat = 12,
         width: CGFloat? = nil,
         height: CGFloat? = nil,
         fill: Bool = false,
@@ -123,15 +127,13 @@ extension TVButton: View {
                 } else {
                     buttonContent
                         .tint(buttonStyle.tintColor)
-                        .frame(maxWidth: width.map { $0 - scaledHorizontalPadding * 2 },
-                               maxHeight: height.map { $0 - scaledVerticalPadding * 2 })
+                        .frame(width: width.map { $0 - scaledHorizontalPadding * 2 },
+                               height: height.map { $0 - scaledVerticalPadding * 2 })
                 }
             }
             .padding(.horizontal, scaledHorizontalPadding)
             .padding(.vertical, scaledVerticalPadding)
-            .frame(minWidth: width,
-                   maxWidth: fill ? .infinity : nil,
-                   minHeight: height)
+            .frame(maxWidth: fill ? .infinity : nil)
             .background {
                 buttonStyle.backgroundView
                     .opacity(isDisabled ? 0.2 : 1)
@@ -146,7 +148,7 @@ extension TVButton: View {
         if let label {
             label
         } else {
-            VStack(spacing: horizontalPadding) {
+            VStack(spacing: verticalPadding) {
                 if let topImage {
                     Image(topImage)
                         .resizable()
@@ -162,7 +164,8 @@ extension TVButton: View {
                     
                     if let title {
                         Text(title)
-                            .font(font ?? .raleway(weight: .semiBold, size: 24, relativeTo: .headline))
+                            .font(font)
+                            .foregroundStyle(buttonStyle.tintColor)
                     }
                     
                     if let leadingImage {
@@ -188,15 +191,17 @@ extension TVButton {
     
     enum Style {
         
-        case filled(ColorStyle)
-        case outlined(ColorStyle)
+        case filled(with: ColorStyle)
+        case outlined(with: ColorStyle)
         case clear
-        case custom(any View, Color = .tintPrimary)
+        case custom(any View,
+                    tint: Color = .tintPrimary)
         
         enum ColorStyle {
             
             case primary
             case secondary
+            case accent
             
             var color: Color {
                 switch self {
@@ -204,6 +209,8 @@ extension TVButton {
                     .mainPrimary
                 case .secondary:
                     .mainSecondary
+                case .accent:
+                    .accent
                 }
             }
             
@@ -213,11 +220,14 @@ extension TVButton {
                     .tintMainPrimary
                 case .secondary:
                     .tintMainSecondary
+                case .accent:
+                    .tintAccent
                 }
             }
         }
         
-        @ViewBuilder var backgroundView: some View {
+        @ViewBuilder
+        var backgroundView: some View {
             switch self {
             case .filled(let colorStyle):
                 AnyShape(.capsule)
@@ -236,10 +246,17 @@ extension TVButton {
             switch self {
             case .filled(let colorStyle):
                 colorStyle.tintColor
-            case .outlined, .clear:
+            case .outlined(let colorStyle):
+                switch colorStyle {
+                case .accent:
+                    colorStyle.color
+                default:
+                    .tintPrimary
+                }
+            case .clear:
                 .tintPrimary
-            case .custom(_, let tintColor):
-                tintColor
+            case .custom(_, let tint):
+                tint
             }
         }
     }

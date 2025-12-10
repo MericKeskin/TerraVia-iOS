@@ -18,7 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // TODO: Set AppCoordinator.shared.root to proper initial flow
-        AppCoordinator.shared.root = .onboarding(.welcome)
+        AppCoordinator.shared.root = .onboarding(.introduce)
         
         return true
     }

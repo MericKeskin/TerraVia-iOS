@@ -15,14 +15,17 @@ struct RegisterView: View {
     
     // MARK: Focus State
     
-    @FocusState private var isPasswordFocused: Bool
-    @FocusState private var isCheckPasswordFocused: Bool
+    @FocusState private var emailFocusState: Bool
+    
+    @FocusState private var passwordFocusState: Bool
+    
+    @FocusState private var checkPasswordFocusState: Bool
     
     var body: some View {
         BaseView(
             viewModel: viewModel,
-            backButtonConfiguration: .custom(viewModel.backButtonTapped),
-            titleConfiguration: .normal(viewModel.navigationTitle)
+            backButtonConfiguration: .custom(action: viewModel.backButtonTapped),
+            titleConfiguration: .normal(title: viewModel.navigationTitle)
         ) { namespace in
             VStack(spacing: 12) {
                 if viewModel.scene != .register {
@@ -47,6 +50,20 @@ struct RegisterView: View {
             .padding(.horizontal, 32)
             .padding(.vertical, 16)
         }
+        .onAppear {
+            bindStates()
+        }
+    }
+}
+
+// MARK: - Binding
+
+extension RegisterView {
+    
+    func bindStates() {
+        viewModel.emailFocusState = $emailFocusState
+        viewModel.passwordFocusState = $passwordFocusState
+        viewModel.checkPasswordFocusState = $checkPasswordFocusState
     }
 }
 
@@ -74,6 +91,7 @@ extension RegisterView {
                 "Email",
                 input: $viewModel.email,
                 font: .raleway(size: 22),
+                focused: $emailFocusState,
                 height: 56
             )
             .keyboardType(.emailAddress)
@@ -82,7 +100,7 @@ extension RegisterView {
             TVButton(
                 title: "Continue",
                 font: .raleway(weight: .bold, size: 22),
-                height: 40,
+                height: 48,
                 fill: true,
                 isDisabled: viewModel.invalidEmail,
                 isLoading: viewModel.isLoading
@@ -96,7 +114,7 @@ extension RegisterView {
             TVButton(
                 title: "Test Route Dashboard",
                 font: .raleway(weight: .bold, size: 22),
-                height: 40,
+                height: 48,
                 fill: true,
             ) {
                 viewModel.coordinator.navigate(to: .dashboard(.home), resetting: true)
@@ -110,28 +128,29 @@ extension RegisterView {
                 TVTextField(
                     "Password",
                     input: $viewModel.password,
-                    style: .secure,
-                    isError: viewModel.invalidPassword && !isPasswordFocused && !viewModel.password.isEmpty,
+                    focused: $passwordFocusState,
+                    height: 56,
+                    isSecured: true,
+                    isError: viewModel.isPasswordError,
                     errorField: {
                         Text("Not a valid password")
                             .font(.raleway(size: 12))
-                    },
-                    height: 56
+                    }
                 )
-                .focused($isPasswordFocused)
 
                 TVTextField(
                     "Check Password",
                     input: $viewModel.checkPassword,
-                    style: .secure,
-                    isError: viewModel.invalidCheckPassword && !isCheckPasswordFocused && !viewModel.checkPassword.isEmpty,
+                    textFieldStyle: .outlined(with: .secondary),
+                    focused: $checkPasswordFocusState,
+                    height: 56,
+                    isSecured: true,
+                    isError: viewModel.isCheckPasswordError,
                     errorField: {
                         Text("Password does not match")
                             .font(.raleway(size: 12))
-                    },
-                    height: 56
+                    }
                 )
-                .focused($isCheckPasswordFocused)
             }
             .matchedGeometryEffect(id: "register_input_stack", in: namespace)
             
@@ -140,7 +159,7 @@ extension RegisterView {
             TVButton(
                 title: "Sign Up",
                 font: .raleway(weight: .bold, size: 22),
-                height: 40,
+                height: 48,
                 fill: true,
                 isDisabled: viewModel.invalidPassword || viewModel.invalidCheckPassword,
                 isLoading: viewModel.isLoading
@@ -153,25 +172,25 @@ extension RegisterView {
     
     func loginContent(namespace: Namespace.ID) -> some View {
         VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 10) {
                 TVTextField(
                     "Password",
                     input: $viewModel.password,
-                    style: .secure,
-                    isError: viewModel.invalidPassword && !isPasswordFocused && !viewModel.password.isEmpty,
+                    focused: $passwordFocusState,
+                    height: 56,
+                    isSecured: true,
+                    isError: viewModel.isPasswordError,
                     errorField: {
                         Text("Not a valid password")
                             .font(.raleway(size: 12))
                     },
-                    height: 56
                 )
-                .focused($isPasswordFocused)
                 
                 TVButton(
                     label: {
                         Text("Forgot password?")
-                            .foregroundStyle(.tintSecondary)
-                            .font(.raleway(size: 16))
+                            .foregroundStyle(.accent)
+                            .font(.raleway(weight: .semiBold, size: 16))
                     },
                     buttonStyle: .clear,
                     horizontalPadding: 0,
@@ -187,7 +206,7 @@ extension RegisterView {
             TVButton(
                 title: "Log In",
                 font: .raleway(weight: .bold, size: 22),
-                height: 40,
+                height: 48,
                 fill: true,
                 isDisabled: viewModel.invalidPassword,
                 isLoading: viewModel.isLoading
@@ -205,7 +224,9 @@ extension RegisterView {
                     .foregroundStyle(.tintSecondary)
                     .font(.raleway(size: 16))
             },
-            buttonStyle: .clear
+            buttonStyle: .clear,
+            horizontalPadding: 0,
+            verticalPadding: 0
         ) {
             viewModel.anotherMethodButtonTapped()
         }
